@@ -1,0 +1,10 @@
+.demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.space {
+  height: 30px;
+  width: 100%;
+}
