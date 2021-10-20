@@ -1,7 +1,7 @@
 const config = {
   development: {
     cdn: './',
-    apiBaseUrl: 'http://localhost/api',
+    apiBaseUrl: '/api',
   },
   beta: {
     cdn: '//s.xxx.com/vite-react-app/beta',

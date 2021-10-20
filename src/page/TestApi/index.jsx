@@ -3,8 +3,10 @@ import { Button, Input } from 'antd';
 import { get } from '@/utils/axios';
 export default () => {
   const [value, setValue] = useState('/v1/account');
+  const [res, setRes] = useState();
   const handdleClick = async () => {
-    await get(value)
+    const data = await get(value);
+    setRes(JSON.stringify(data, 0, 2));
   };
   return (
     <>
@@ -17,6 +19,7 @@ export default () => {
           setValue(e.target.value);
         }}
       />
+      <pre>{res}</pre>
     </>
   );
 };

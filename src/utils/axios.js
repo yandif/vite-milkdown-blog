@@ -1,16 +1,13 @@
 import axios from 'axios';
 import config from '~/config';
-
+import { message as Message } from '@/components/Message/index';
 const instance = axios.create({
   baseURL: config.apiBaseUrl,
-  withCredentials: true,
+  withCredentials: false,
   timeout: 10000,
   crossDomain: true,
 });
 
-instance.defaults.headers['Access-Control-Allow-Origin'] = '*';
-instance.defaults.headers['Access-Control-Allow-Credentials'] = 'true';
-instance.defaults.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';
 instance.defaults.headers.post['Content-Type'] = 'application/json';
 /** 添加请求拦截器 **/
 instance.interceptors.request.use(
@@ -30,24 +27,21 @@ instance.interceptors.request.use(
 /** 添加响应拦截器  **/
 instance.interceptors.response.use(
   response => {
-    const { faild, type, message, data } = response?.data;
-    if (faild === false) {
-      console.log(`${type} => ${message}`);
-      return Promise.resolve({ faild, ...data });
+    const { code, message, result, status } = response?.data;
+    if (code) {
+      if (status === 500) {
+        Message.error('服务器错误');
+      } else if (status === 404) {
+        Message.error('资源不存在');
+      } else {
+        Message.error(message);
+      }
     } else {
-      console.log(`${type} => ${message}`);
-      return Promise.resolve({ faild, ...data });
+      Message.success(message);
     }
+    return Promise.resolve({ code, message, data: result });
   },
   error => {
-    const { faild, type, message } = error?.response?.data;
-    if (faild === true) {
-      console.log(`${type} => ${message}`);
-
-      if (error.response.status === 401) {
-        window.location.href = '/#/signin';
-      }
-    }
     return Promise.reject(error);
   }
 );
