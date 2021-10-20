@@ -1,14 +1,16 @@
-export default {
+const config = {
   development: {
     cdn: './',
-    apiBaseUrl: '/api'
+    apiBaseUrl: 'http://localhost/api',
   },
   beta: {
     cdn: '//s.xxx.com/vite-react-app/beta',
-    apiBaseUrl: '//www.beta.xxx.com/v1'
+    apiBaseUrl: '//www.beta.xxx.com/v1',
   },
   release: {
     cdn: '//s.xxx.com/vite-react-app/release',
-    apiBaseUrl: '//www.xxx.com/v1'
-  }
-}
+    apiBaseUrl: '//www.xxx.com/v1',
+  },
+};
+
+export default config[import.meta.env.MODE];
