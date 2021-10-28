@@ -2,10 +2,12 @@ import { Provider } from 'mobx-react';
 import React from 'react';
 import commonStore from './commonStore';
 import blogStore from './blogStore';
+import adminStore from './adminStore';
 
 const stores = {
   commonStore,
   blogStore,
+  adminStore,
 };
 
 // 方便调试

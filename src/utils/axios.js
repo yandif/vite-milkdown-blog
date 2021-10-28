@@ -1,8 +1,8 @@
 import axios from 'axios';
-import config from '~/config';
+
 import { message as Message } from '@/components/Message/index';
 const instance = axios.create({
-  baseURL: config.apiBaseUrl,
+  baseURL: "/api",
   withCredentials: false,
   timeout: 10000,
   crossDomain: true,

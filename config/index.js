@@ -13,4 +13,4 @@ const config = {
   },
 };
 
-export default config[import.meta.env.MODE];
+export default config;

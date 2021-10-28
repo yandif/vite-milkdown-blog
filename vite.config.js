@@ -10,8 +10,7 @@ const themeVariables = lessToJS(
   fs.readFileSync(path.resolve(__dirname, './config/variables.less'), 'utf8')
 )
 
-const env = process.argv[process.argv.length - 1]
-const base = config[env]
+const base = config[process.argv[process.argv.length - 1]]
 
 // https://vitejs.dev/config/
 export default defineConfig({

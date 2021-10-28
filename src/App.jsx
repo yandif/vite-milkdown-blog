@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import MessageProvider from './components/Message';
+import NoMatch from './components/NoMatch';
 import routes from './page/routes';
 import MobxProvider from './stores';
 
@@ -11,10 +12,11 @@ function App() {
         <Router>
           <Switch>
             {routes.map(route => (
-              <Route exact key={route.path} path={route.path}>
+              <Route exact={route.exact} key={route.path} path={route.path}>
                 <route.component />
               </Route>
             ))}
+            <Route path="*" component={NoMatch} />
           </Switch>
         </Router>
       </MessageProvider>
