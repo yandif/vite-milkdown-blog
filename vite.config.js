@@ -15,7 +15,7 @@ const base = config[process.argv[process.argv.length - 1]]
 // https://vitejs.dev/config/
 export default defineConfig({
   base: base.cdn,
-  publicDir:"./src/public",
+  publicDir:"./public",
   plugins: [
     reactRefresh(),
     vitePluginImp({
