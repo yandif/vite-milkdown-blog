@@ -4,10 +4,10 @@ import vitePluginImp from 'vite-plugin-imp'
 import path from 'path'
 import fs from 'fs'
 import lessToJS from 'less-vars-to-js'
-import config from './config'
+import config from './src/config'
 
 const themeVariables = lessToJS(
-  fs.readFileSync(path.resolve(__dirname, './config/variables.less'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, './src/config/variables.less'), 'utf8')
 )
 
 const base = config[process.argv[process.argv.length - 1]]
