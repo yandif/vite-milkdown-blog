@@ -1,0 +1,34 @@
+.admin-sider {
+  box-shadow: 2px 0 6px rgba(0,21,41,0.35);
+  min-height: 100vh;
+}
+.admin-sider .menuLogo {
+  height: 64px;
+  background-color: #001529;
+}
+.admin-sider .menuLogo.hide a {
+  justify-content: center;
+}
+.admin-sider .menuLogo.hide a div {
+  overflow: hidden;
+  opacity: 0;
+  width: 0;
+}
+.admin-sider .menuLogo a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.admin-sider .menuLogo a img {
+  width: 40px;
+  flex: none;
+  margin-left: 12px;
+}
+.admin-sider .menuLogo a div {
+  color: #fff;
+  width: 100%;
+  font-size: 24px;
+  padding-left: 10px;
+  white-space: nowrap;
+  transition: all 0.3s;
+}

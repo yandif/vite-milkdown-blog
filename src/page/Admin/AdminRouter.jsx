@@ -1,34 +1,37 @@
 import React, { lazy, Suspense, useCallback } from 'react';
-import Loading from '@/components/Loading';
 import NoMatch from '@/components/NoMatch';
 import { inject, observer } from 'mobx-react';
 import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import AdminLayout from '@/Layout/AdminLayout';
+import asyncRouter from '@/components/asyncRouter';
 
-const Demo = lazy(() => import('@/page/Demo'));
+const Home = asyncRouter(() => import('./Home'));
+const Login = asyncRouter(() => import('./Login'));
+const Account = asyncRouter(() => import('./Account'));
 
 const AdminRouter = ({ match, adminStore }) => {
   const { data, setUser } = adminStore;
-  
+
   const routes = [];
-  const registerRoute = (path, component, exact = true, auth = false) =>
+  const registerRoute = ({ path, component, exact = true, auth = false }) =>
     routes.push({ path, component, exact, auth });
 
-  registerRoute('/demo', Demo);
-  registerRoute('/login', Demo);
-  registerRoute('/account', Demo, true, true);
+  registerRoute({ path: '/login', component: Login });
+  registerRoute({ path: '/', component: Home, auth: true });
+  registerRoute({ path: '/home', component: Home, auth: true });
+  registerRoute({ path: '/Account', component: Account, auth: true });
 
   const onEnter = useCallback((route, props) => {
     const userTemp = true;
     if (!userTemp && route.auth) {
       return <Redirect to={match.url + '/login'} />;
     }
-    return <route.component {...props} />;
+    return <route.component {...props} a={1}/>;
   }, []);
 
   return (
     <Router>
-      <h1>Admin</h1>
-      <Suspense fallback={<Loading />}>
+      <AdminLayout>
         <Switch>
           {routes.map(route => (
             <Route
@@ -40,7 +43,7 @@ const AdminRouter = ({ match, adminStore }) => {
           ))}
           <Route path="*" component={NoMatch} />
         </Switch>
-      </Suspense>
+      </AdminLayout>
     </Router>
   );
 };
