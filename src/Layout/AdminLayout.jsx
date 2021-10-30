@@ -14,7 +14,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
   // 退出登录
   const handleLogout = useCallback(() => {
     message.success('退出成功');
-    props.history.push('/admin/login');
+    history.push('/login');
   }, []);
 
   const data = [
@@ -22,7 +22,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
       id: 1,
       title: '首页',
       icon: 'icon-home',
-      url: '/admin/home',
+      url: '/home',
       parent: null,
       desc: '首页',
       sorts: 0,
@@ -32,7 +32,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
       id: 2,
       title: '系统管理',
       icon: 'icon-setting',
-      url: '/admin',
+      url: '/system',
       parent: null,
       desc: '系统管理目录分支',
       sorts: 1,
@@ -42,7 +42,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
       id: 3,
       title: '用户管理',
       icon: 'icon-user',
-      url: '/admin/account',
+      url: '/system/account',
       parent: 2,
       desc: '系统管理/用户管理',
       sorts: 0,
@@ -52,7 +52,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
       id: 4,
       title: '角色管理',
       icon: 'icon-team',
-      url: '/admin/role',
+      url: '/system/role',
       parent: 2,
       desc: '系统管理/角色管理',
       sorts: 1,
@@ -62,7 +62,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
       id: 5,
       title: '权限管理',
       icon: 'icon-safetycertificate',
-      url: '/admin/power',
+      url: '/system/power',
       parent: 2,
       desc: '系统管理/权限管理',
       sorts: 2,
@@ -72,7 +72,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
       id: 6,
       title: '菜单管理',
       icon: 'icon-appstore',
-      url: '/admin/menu',
+      url: '/system/menu',
       parent: 2,
       desc: '系统管理/菜单管理',
       sorts: 3,

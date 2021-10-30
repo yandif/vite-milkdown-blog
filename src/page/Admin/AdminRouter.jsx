@@ -6,7 +6,6 @@ import AdminLayout from '@/Layout/AdminLayout';
 import asyncRouter from '@/components/asyncRouter';
 
 const Home = asyncRouter(() => import('./Home'));
-const Login = asyncRouter(() => import('./Login'));
 const Account = asyncRouter(() => import('./Account'));
 
 const AdminRouter = ({ match, adminStore }) => {
@@ -16,7 +15,6 @@ const AdminRouter = ({ match, adminStore }) => {
   const registerRoute = ({ path, component, exact = true, auth = false }) =>
     routes.push({ path, component, exact, auth });
 
-  registerRoute({ path: '/login', component: Login });
   registerRoute({ path: '/', component: Home, auth: true });
   registerRoute({ path: '/home', component: Home, auth: true });
   registerRoute({ path: '/Account', component: Account, auth: true });
@@ -26,18 +24,18 @@ const AdminRouter = ({ match, adminStore }) => {
     if (!userTemp && route.auth) {
       return <Redirect to={match.url + '/login'} />;
     }
-    return <route.component {...props} a={1}/>;
+    return <route.component {...props} />;
   }, []);
 
   return (
-    <Router>
+    <Router basename="admin">
       <AdminLayout>
         <Switch>
           {routes.map(route => (
             <Route
               key={route.path}
               exact={route.exact}
-              path={`${match.url}${route.path}`}
+              path={route.path}
               render={props => onEnter(route, props)}
             />
           ))}

@@ -96,7 +96,7 @@ const AdminSider = ({ collapsed, location, history, data }) => {
   return (
     <Sider width={256} className="admin-sider" trigger={null} collapsible collapsed={collapsed}>
       <div className={collapsed ? 'menuLogo hide' : 'menuLogo'}>
-        <Link to="/admin/">
+        <Link to="/home">
           <img src={ImgLogo} />
           <div>React-Admin</div>
         </Link>
