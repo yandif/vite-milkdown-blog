@@ -4,10 +4,10 @@ import AdminLayout from '@/Layout/AdminLayout';
 import { inject, observer } from 'mobx-react';
 import React, { useCallback, useState } from 'react';
 import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import Login from './Login';
 
 const Home = asyncRouter(() => import('./Home'));
 const Account = asyncRouter(() => import('./Account'));
-const Login = asyncRouter(() => import('./Login'));
 
 const AdminRouter = ({ match, adminStore }) => {
   const { data, setUser } = adminStore;
