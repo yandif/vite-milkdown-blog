@@ -1,25 +1,29 @@
-import React, { lazy, Suspense, useCallback } from 'react';
-import NoMatch from '@/components/NoMatch';
-import { inject, observer } from 'mobx-react';
-import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import AdminLayout from '@/Layout/AdminLayout';
 import asyncRouter from '@/components/asyncRouter';
+import NoMatch from '@/components/NoMatch';
+import AdminLayout from '@/Layout/AdminLayout';
+import { inject, observer } from 'mobx-react';
+import React, { useCallback, useState } from 'react';
+import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 const Home = asyncRouter(() => import('./Home'));
 const Account = asyncRouter(() => import('./Account'));
+const Login = asyncRouter(() => import('./Login'));
 
 const AdminRouter = ({ match, adminStore }) => {
   const { data, setUser } = adminStore;
-
+  const [hidden, setHidden] = useState(false);
   const routes = [];
-  const registerRoute = ({ path, component, exact = true, auth = false }) =>
-    routes.push({ path, component, exact, auth });
+  const registerRoute = ({ path, component, exact = true, auth = false, hidden = false }) =>
+    routes.push({ path, component, exact, auth, hidden });
 
   registerRoute({ path: '/', component: Home, auth: true });
   registerRoute({ path: '/home', component: Home, auth: true });
-  registerRoute({ path: '/Account', component: Account, auth: true });
+  registerRoute({ path: '/login', component: Login, hidden: true });
+  registerRoute({ path: '/system/account', component: Account, auth: true });
+  registerRoute({ path: '*', component: NoMatch, auth: true });
 
   const onEnter = useCallback((route, props) => {
+    setHidden(route.hidden);
     const userTemp = true;
     if (!userTemp && route.auth) {
       return <Redirect to={match.url + '/login'} />;
@@ -29,7 +33,7 @@ const AdminRouter = ({ match, adminStore }) => {
 
   return (
     <Router basename="admin">
-      <AdminLayout>
+      <AdminLayout hidden={hidden}>
         <Switch>
           {routes.map(route => (
             <Route
@@ -39,7 +43,6 @@ const AdminRouter = ({ match, adminStore }) => {
               render={props => onEnter(route, props)}
             />
           ))}
-          <Route path="*" component={NoMatch} />
         </Switch>
       </AdminLayout>
     </Router>

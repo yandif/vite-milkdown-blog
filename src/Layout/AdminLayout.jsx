@@ -9,7 +9,7 @@ import { withRouter } from 'react-router';
 
 const { Content } = Layout;
 
-const AdminLayout = withRouter(({ children, history, location }) => {
+const AdminLayout = withRouter(({ children, history, location, hidden }) => {
   const [collapsed, setCollapsed] = useState(false);
   // 退出登录
   const handleLogout = useCallback(() => {
@@ -305,15 +305,17 @@ const AdminLayout = withRouter(({ children, history, location }) => {
   };
   return (
     <Layout>
-      <Sider collapsed={collapsed} data={data} history={history} location={location} />
+      {!hidden && <Sider collapsed={collapsed} data={data} history={history} location={location} />}
       <Layout>
-        <Header
-          collapsed={collapsed}
-          userinfo={userinfo}
-          onToggle={() => setCollapsed(!collapsed)}
-          onLogout={handleLogout}
-        />
-        <Bread menus={userinfo.menus} location={location} />
+        {!hidden && [
+          <Header
+            collapsed={collapsed}
+            userinfo={userinfo}
+            onToggle={() => setCollapsed(!collapsed)}
+            onLogout={handleLogout}
+          />,
+          <Bread menus={userinfo.menus} location={location} />,
+        ]}
         <Content
           style={{
             margin: '0 16px',
@@ -324,7 +326,7 @@ const AdminLayout = withRouter(({ children, history, location }) => {
         >
           {children}
         </Content>
-        <Footer />
+        {!hidden && <Footer />}
       </Layout>
     </Layout>
   );

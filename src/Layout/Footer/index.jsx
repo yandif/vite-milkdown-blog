@@ -4,9 +4,9 @@ import './index.css';
 
 const { Footer } = Layout;
 
-const AdminFooter = ({ className }) => {
+const AdminFooter = ({ white }) => {
   return (
-    <Footer className={`admin-footer ${className}`}>
+    <Footer className={`admin-footer ${white && 'white'}`}>
       © 2018-{new Date().getFullYear() + ' '}
       <a href="https://blog.isluo.com" target="_blank" rel="noopener noreferrer">
         blog.isluo.com

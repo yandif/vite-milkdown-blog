@@ -6,7 +6,7 @@
 .admin-footer a:hover {
   text-decoration: underline;
 }
-.admin-footer.user-layout {
+.admin-footer.white {
   width: 100%;
   background-color: transparent;
   color: #ddd;

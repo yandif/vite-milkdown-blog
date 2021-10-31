@@ -3,7 +3,6 @@ import AdminRouter from '@/page/Admin/AdminRouter';
 import Blog from '@/page/Blog';
 import Demo from '@/page/Demo';
 import TestApi from '@/page/TestApi';
-import Login from '@/page/Login';
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -14,7 +13,6 @@ const RootRouter = () => {
   registerRoute('/demo', Demo);
   registerRoute('/blog', Blog);
   registerRoute('/test', TestApi);
-  registerRoute('/login', Login);
   registerRoute('/admin', AdminRouter, false);
 
   return (
