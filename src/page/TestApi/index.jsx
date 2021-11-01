@@ -5,9 +5,9 @@ export default () => {
   const [value, setValue] = useState();
   const [res, setRes] = useState();
   const valueMap = {
-    帐号: '/v1/account',
-    资源: '/v1/access',
-    角色: '/v1/role',
+    帐号: '/account',
+    资源: '/access',
+    角色: '/role',
   };
   const buttons = [];
   for (const key in valueMap) {

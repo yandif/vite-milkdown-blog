@@ -1,16 +1,19 @@
 import { message } from '@/components/Message';
+import Bread from '@/Layout/Bread/index';
+import Footer from '@/Layout/Footer/index';
 import Header from '@/Layout/Header/index';
 import Sider from '@/Layout/Sider/index';
-import Footer from '@/Layout/Footer/index';
-import Bread from '@/Layout/Bread/index';
 import { Layout } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { withRouter } from 'react-router';
 
 const { Content } = Layout;
 
-const AdminLayout = withRouter(({ children, history, location, hidden }) => {
+const AdminLayout = withRouter(({ children, history, location, hiddenPath = [] }) => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const hidden = hiddenPath.filter(path => path === location.pathname)?.length > 0;
+
   // 退出登录
   const handleLogout = useCallback(() => {
     message.success('退出成功');

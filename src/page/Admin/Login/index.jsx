@@ -1,8 +1,10 @@
 import LogoImg from '@/assets/img/logo.png';
 import Background from '@/components/Background';
+import { Account } from '@/services';
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import React, { useEffect, useState } from 'react';
+
 import './index.less';
 
 const Login = () => {
@@ -25,9 +27,27 @@ const LoginForm = ({ prefix }) => {
   useEffect(() => {
     setShow(true);
   }, []);
+
+  const [loading, setLoading] = useState(false);
+
+  const [form] = Form.useForm();
+
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const data = await form.validateFields();
+      const res = await Account.Login(data);
+      
+    } catch (e) {
+      //
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={`${prefix}-form ${show && 'show'}`}>
-      <Form>
+      <Form form={form}>
         <div className="title">
           <img src={LogoImg} alt="logo" />
           <span>React-Admin</span>
@@ -48,7 +68,7 @@ const LoginForm = ({ prefix }) => {
             size="large"
             id="username" // 为了获取焦点
             placeholder="admin/user"
-            // onPressEnter={onSubmit}
+            onPressEnter={handleSubmit}
           />
         </Form.Item>
         <Form.Item
@@ -63,7 +83,7 @@ const LoginForm = ({ prefix }) => {
             size="large"
             type="password"
             placeholder="123456/123456"
-            // onPressEnter={onSubmit}
+            onPressEnter={handleSubmit}
           />
         </Form.Item>
         <div style={{ lineHeight: '40px' }}>
@@ -78,11 +98,10 @@ const LoginForm = ({ prefix }) => {
             className="submit"
             size="large"
             type="primary"
-            // loading={loading}
-            // onClick={onSubmit}
+            loading={loading}
+            onClick={handleSubmit}
           >
-            {/* {loading ? '请稍后' : '登录'} */}
-            登录
+            {loading ? '请稍后' : '登录'}
           </Button>
         </div>
       </Form>

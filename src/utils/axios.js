@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 import { message as Message } from '@/components/Message/index';
+
 const instance = axios.create({
-  baseURL: "/api",
+  baseURL: "/api/v1",
   withCredentials: false,
   timeout: 10000,
   crossDomain: true,
@@ -37,7 +38,7 @@ instance.interceptors.response.use(
         Message.error(message);
       }
     } else {
-      Message.success(message);
+      // Message.success(message);
     }
     return Promise.resolve({ code, message, data: result });
   },

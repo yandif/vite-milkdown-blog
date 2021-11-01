@@ -11,7 +11,7 @@ const Account = asyncRouter(() => import('./Account'));
 
 const AdminRouter = ({ match, adminStore }) => {
   const { data, setUser } = adminStore;
-  const [hidden, setHidden] = useState(false);
+
   const routes = [];
   const registerRoute = ({ path, component, exact = true, auth = false, hidden = false }) =>
     routes.push({ path, component, exact, auth, hidden });
@@ -22,8 +22,9 @@ const AdminRouter = ({ match, adminStore }) => {
   registerRoute({ path: '/system/account', component: Account, auth: true });
   registerRoute({ path: '*', component: NoMatch, auth: true });
 
+  const hiddenPath = routes?.filter(({ hidden }) => hidden).map(({ path }) => path);
+  console.log(hiddenPath);
   const onEnter = useCallback((route, props) => {
-    setHidden(route.hidden);
     const userTemp = true;
     if (!userTemp && route.auth) {
       return <Redirect to={match.url + '/login'} />;
@@ -33,7 +34,7 @@ const AdminRouter = ({ match, adminStore }) => {
 
   return (
     <Router basename="admin">
-      <AdminLayout hidden={hidden}>
+      <AdminLayout hiddenPath={hiddenPath}>
         <Switch>
           {routes.map(route => (
             <Route
