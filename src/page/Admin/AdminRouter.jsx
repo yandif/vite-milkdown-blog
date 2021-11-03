@@ -2,15 +2,23 @@ import asyncRouter from '@/components/asyncRouter';
 import NoMatch from '@/components/NoMatch';
 import AdminLayout from '@/Layout/AdminLayout';
 import { inject, observer } from 'mobx-react';
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import Home from './Home';
 import Login from './Login';
 
-const Home = asyncRouter(() => import('./Home'));
 const Account = asyncRouter(() => import('./Account'));
 
-const AdminRouter = ({ match, adminStore }) => {
-  const { data, setUser } = adminStore;
+const AdminRouter = props => {
+  const {
+    adminStore: {
+      data: { userBasicInfo },
+      setData,
+    },
+    history: {
+      location: { pathname },
+    },
+  } = props;
 
   const routes = [];
   const registerRoute = ({ path, component, exact = true, auth = false, hidden = false }) =>
@@ -23,18 +31,22 @@ const AdminRouter = ({ match, adminStore }) => {
   registerRoute({ path: '*', component: NoMatch, auth: true });
 
   const hiddenPath = routes?.filter(({ hidden }) => hidden).map(({ path }) => path);
-  console.log(hiddenPath);
-  const onEnter = useCallback((route, props) => {
-    const userTemp = true;
-    if (!userTemp && route.auth) {
-      return <Redirect to={match.url + '/login'} />;
+
+  const onEnter = (route, props) => {
+    if (userBasicInfo && pathname === '/admin/login') {
+      return <Redirect to="/" />;
     }
+
+    if (!userBasicInfo && route.auth) {
+      return <Redirect to="/login" />;
+    }
+
     return <route.component {...props} />;
-  }, []);
+  };
 
   return (
     <Router basename="admin">
-      <AdminLayout hiddenPath={hiddenPath}>
+      <AdminLayout hiddenPath={hiddenPath} setData={setData}>
         <Switch>
           {routes.map(route => (
             <Route
@@ -50,4 +62,4 @@ const AdminRouter = ({ match, adminStore }) => {
   );
 };
 
-export default inject('adminStore')(observer(withRouter(AdminRouter)));
+export default withRouter(inject('adminStore')(observer(AdminRouter)));

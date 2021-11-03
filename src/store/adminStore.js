@@ -1,14 +1,17 @@
 import { action, autorun, observable } from 'mobx';
 
 const data = observable({
-  user: null,
+  userBasicInfo: null,
+  role: [],
+  menus: [],
+  power: [],
 });
 
-const setUser = action(userData => {
-  data.user = userData;
+const setData = action((key, value) => {
+  data[key] = value;
 });
 
 export default {
   data,
-  setUser,
+  setData,
 };

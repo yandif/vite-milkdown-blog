@@ -3,7 +3,7 @@ import axios from 'axios';
 import { message as Message } from '@/components/Message/index';
 
 const instance = axios.create({
-  baseURL: "/api/v1",
+  baseURL: '/api/v1',
   withCredentials: false,
   timeout: 10000,
   crossDomain: true,
@@ -13,7 +13,7 @@ instance.defaults.headers.post['Content-Type'] = 'application/json';
 /** 添加请求拦截器 **/
 instance.interceptors.request.use(
   config => {
-    config.headers['x-access-token'] = localStorage.getItem('exam-token') || '';
+    config.headers['token'] = localStorage.getItem('token') || '';
     // 文件上传，发送的是二进制流，所以需要设置请求头的'Content-Type'
     // if (config.url.includes("/upload")) {
     //   config.headers["Content-Type"] = "multipart/form-data";

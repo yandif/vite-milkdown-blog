@@ -4,4 +4,7 @@ export const Account = {
   Login(data) {
     return post('/login', data);
   },
+  getMenus() {
+    return get('/menus')
+  }
 };

@@ -6,10 +6,10 @@ import Sider from '@/Layout/Sider/index';
 import { Layout } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { withRouter } from 'react-router';
-
+import { observer, inject } from 'mobx-react';
 const { Content } = Layout;
 
-const AdminLayout = withRouter(({ children, history, location, hiddenPath = [] }) => {
+const AdminLayout = ({ children, history, location, hiddenPath = [], setData }) => {
   const [collapsed, setCollapsed] = useState(false);
 
   const hidden = hiddenPath.filter(path => path === location.pathname)?.length > 0;
@@ -17,6 +17,7 @@ const AdminLayout = withRouter(({ children, history, location, hiddenPath = [] }
   // 退出登录
   const handleLogout = useCallback(() => {
     message.success('退出成功');
+    setData('userBasicInfo', null);
     history.push('/login');
   }, []);
 
@@ -333,5 +334,6 @@ const AdminLayout = withRouter(({ children, history, location, hiddenPath = [] }
       </Layout>
     </Layout>
   );
-});
-export default AdminLayout;
+};
+
+export default withRouter(AdminLayout);
