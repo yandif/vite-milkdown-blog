@@ -1,5 +1,5 @@
 import LogoImg from '@/assets/img/logo.png';
-import { TOKEN } from '@/constants';
+import { LOGININFO, TOKEN } from '@/constants';
 import { Account } from '@/services';
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
@@ -12,8 +12,26 @@ const LoginForm = ({ prefix, setUser, history }) => {
   }, []);
 
   const [loading, setLoading] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(false);
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    const loginInfo = localStorage.getItem(LOGININFO);
+    if (loginInfo) {
+      const loginInfoObj = JSON.parse(loginInfo);
+
+      setRememberPassword(true);
+
+      form.setFieldsValue({
+        username: loginInfoObj.username,
+        password: loginInfoObj.password,
+      });
+    }
+    if (!loginInfo) {
+      document.getElementById('username')?.focus();
+    }
+  }, [form]);
 
   const handleSubmit = async () => {
     try {
@@ -25,6 +43,18 @@ const LoginForm = ({ prefix, setUser, history }) => {
       if (!account || account.code !== 0 || !account.data) {
         // 登录失败
         return account;
+      }
+
+      if (rememberPassword) {
+        localStorage.setItem(
+          LOGININFO,
+          JSON.stringify({
+            username: username,
+            password: password,
+          })
+        );
+      } else {
+        localStorage.removeItem(LOGININFO);
       }
 
       localStorage.setItem(TOKEN, window.atob(account.data.token));
@@ -39,6 +69,10 @@ const LoginForm = ({ prefix, setUser, history }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const onRemember = e => {
+    setRememberPassword(e.target.checked);
   };
 
   return (
@@ -83,11 +117,7 @@ const LoginForm = ({ prefix, setUser, history }) => {
           />
         </Form.Item>
         <div style={{ lineHeight: '40px' }}>
-          <Checkbox
-            className="remember"
-            // checked={rememberPassword}
-            // onChange={onRemember}
-          >
+          <Checkbox className="remember" checked={rememberPassword} onChange={onRemember}>
             记住密码
           </Checkbox>
           <Button

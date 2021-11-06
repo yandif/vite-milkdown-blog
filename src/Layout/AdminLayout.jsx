@@ -29,7 +29,7 @@ const AdminLayout = props => {
   const handleLogout = useCallback(() => {
     message.success('退出成功');
     setUser(null);
-    localStorage.setItem(TOKEN, '');
+    localStorage.removeItem(TOKEN);
   }, []);
 
   const data = [
