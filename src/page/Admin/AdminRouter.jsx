@@ -12,8 +12,7 @@ const Account = asyncRouter(() => import('./Account'));
 const AdminRouter = props => {
   const {
     adminStore: {
-      data: { userBasicInfo },
-      setData,
+      data: { user },
     },
     history: {
       location: { pathname },
@@ -33,11 +32,11 @@ const AdminRouter = props => {
   const hiddenPath = routes?.filter(({ hidden }) => hidden).map(({ path }) => path);
 
   const onEnter = (route, props) => {
-    if (userBasicInfo && pathname === '/admin/login') {
+    if (user && pathname === '/admin/login') {
       return <Redirect to="/" />;
     }
 
-    if (!userBasicInfo && route.auth) {
+    if (!user && route.auth) {
       return <Redirect to="/login" />;
     }
 
@@ -46,7 +45,7 @@ const AdminRouter = props => {
 
   return (
     <Router basename="admin">
-      <AdminLayout hiddenPath={hiddenPath} setData={setData}>
+      <AdminLayout hiddenPath={hiddenPath}>
         <Switch>
           {routes.map(route => (
             <Route

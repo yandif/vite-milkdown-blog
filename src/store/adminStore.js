@@ -1,17 +1,25 @@
-import { action, autorun, observable } from 'mobx';
+import { action, intercept, observable } from 'mobx';
 
 const data = observable({
-  userBasicInfo: null,
-  role: [],
+  user: null,
+  roles: [],
   menus: [],
-  power: [],
 });
 
-const setData = action((key, value) => {
-  data[key] = value;
+const disposer = intercept(data, 'user', change => {
+  const { newValue } = change;
+  if (newValue) {
+    console.log(newValue);
+  }
+  return change;
+  // disposer();//停止监听
+});
+
+const setUser = action(value => {
+  data.user = value;
 });
 
 export default {
   data,
-  setData,
+  setUser,
 };

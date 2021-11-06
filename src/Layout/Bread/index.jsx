@@ -29,7 +29,13 @@ export default function BreadCom(props) {
   return (
     <div className="bread">
       <EnvironmentOutlined className="icon" />
-      <Breadcrumb>{breads}</Breadcrumb>
+      <Breadcrumb>
+        {breads?.length > 0 ? (
+          breads
+        ) : (
+          <Breadcrumb.Item key="admin-bread-home">首页</Breadcrumb.Item>
+        )}
+      </Breadcrumb>
     </div>
   );
 }
