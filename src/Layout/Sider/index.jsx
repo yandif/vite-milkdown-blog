@@ -1,7 +1,8 @@
 import ImgLogo from '@/assets/img/logo.png';
-import Icon from "@/components/Icon";
+import Icon from '@/components/Icon';
 import { Layout, Menu } from 'antd';
 import { cloneDeep } from 'lodash';
+import { inject, observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
@@ -114,4 +115,4 @@ const AdminSider = ({ collapsed, location, history, data }) => {
     </Sider>
   );
 };
-export default AdminSider;
+export default inject('adminStore')(observer(AdminSider));

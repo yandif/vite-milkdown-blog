@@ -6,6 +6,10 @@ const data = observable({
   menus: [],
 });
 
+const setUser = action(value => {
+  data.user = value;
+});
+
 const disposer = intercept(data, 'user', change => {
   const { newValue } = change;
   if (newValue) {
@@ -13,10 +17,6 @@ const disposer = intercept(data, 'user', change => {
   }
   return change;
   // disposer();//停止监听
-});
-
-const setUser = action(value => {
-  data.user = value;
 });
 
 export default {

@@ -6,5 +6,8 @@ export const Account = {
   },
   getMenus() {
     return get('/menus')
+  },
+  getUserInfo() {
+    return get('/account/me')
   }
 };

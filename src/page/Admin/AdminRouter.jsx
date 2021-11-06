@@ -1,18 +1,21 @@
 import asyncRouter from '@/components/asyncRouter';
 import NoMatch from '@/components/NoMatch';
+import { TOKEN } from '@/constants';
 import AdminLayout from '@/Layout/AdminLayout';
+import { Account } from '@/services';
 import { inject, observer } from 'mobx-react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HashRouter as Router, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Home from './Home';
 import Login from './Login';
 
-const Account = asyncRouter(() => import('./Account'));
+const AccountView = asyncRouter(() => import('./Account'));
 
 const AdminRouter = props => {
   const {
     adminStore: {
       data: { user },
+      setUser,
     },
     history: {
       location: { pathname },
@@ -26,10 +29,21 @@ const AdminRouter = props => {
   registerRoute({ path: '/', component: Home, auth: true });
   registerRoute({ path: '/home', component: Home, auth: true });
   registerRoute({ path: '/login', component: Login, hidden: true });
-  registerRoute({ path: '/system/account', component: Account, auth: true });
+  registerRoute({ path: '/system/account', component: AccountView, auth: true });
   registerRoute({ path: '*', component: NoMatch, auth: true });
 
   const hiddenPath = routes?.filter(({ hidden }) => hidden).map(({ path }) => path);
+
+  const [checkUser, setCheckUser] = useState(false);
+  useEffect(() => {
+    (async () => {
+      if (!user && !!localStorage.getItem(TOKEN)) {
+        const { data } = await Account.getUserInfo();
+        setUser(data);
+      }
+      setCheckUser(true);
+    })();
+  }, []);
 
   const onEnter = (route, props) => {
     if (user && pathname === '/admin/login') {
@@ -44,20 +58,22 @@ const AdminRouter = props => {
   };
 
   return (
-    <Router basename="admin">
-      <AdminLayout hiddenPath={hiddenPath}>
-        <Switch>
-          {routes.map(route => (
-            <Route
-              key={route.path}
-              exact={route.exact}
-              path={route.path}
-              render={props => onEnter(route, props)}
-            />
-          ))}
-        </Switch>
-      </AdminLayout>
-    </Router>
+    checkUser && (
+      <Router basename="admin">
+        <AdminLayout hiddenPath={hiddenPath}>
+          <Switch>
+            {routes.map(route => (
+              <Route
+                key={route.path}
+                exact={route.exact}
+                path={route.path}
+                render={props => onEnter(route, props)}
+              />
+            ))}
+          </Switch>
+        </AdminLayout>
+      </Router>
+    )
   );
 };
 

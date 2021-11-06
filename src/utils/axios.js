@@ -1,6 +1,6 @@
-import axios from 'axios';
-
 import { message as Message } from '@/components/Message/index';
+import { TOKEN } from '@/constants';
+import axios from 'axios';
 
 const instance = axios.create({
   baseURL: '/api/v1',
@@ -13,7 +13,10 @@ instance.defaults.headers.post['Content-Type'] = 'application/json';
 /** 添加请求拦截器 **/
 instance.interceptors.request.use(
   config => {
-    config.headers['token'] = localStorage.getItem('token') || '';
+    const token = localStorage.getItem(TOKEN);
+    if (!!token) {
+      config.headers['token'] = window.btoa(token);
+    }
     // 文件上传，发送的是二进制流，所以需要设置请求头的'Content-Type'
     // if (config.url.includes("/upload")) {
     //   config.headers["Content-Type"] = "multipart/form-data";

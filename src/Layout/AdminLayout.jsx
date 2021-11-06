@@ -7,6 +7,7 @@ import { Layout } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { withRouter } from 'react-router';
 import { observer, inject } from 'mobx-react';
+import { TOKEN } from '@/constants';
 const { Content } = Layout;
 
 const AdminLayout = props => {
@@ -15,7 +16,10 @@ const AdminLayout = props => {
     history,
     location,
     hiddenPath = [],
-    adminStore: { setUser },
+    adminStore: {
+      setUser,
+      data: { user },
+    },
   } = props;
   const [collapsed, setCollapsed] = useState(false);
 
@@ -25,7 +29,7 @@ const AdminLayout = props => {
   const handleLogout = useCallback(() => {
     message.success('退出成功');
     setUser(null);
-    history.push('/login');
+    localStorage.setItem(TOKEN, '');
   }, []);
 
   const data = [
@@ -91,16 +95,7 @@ const AdminLayout = props => {
     },
   ];
   const userinfo = {
-    userBasicInfo: {
-      id: 1,
-      username: 'admin',
-      password: '123456',
-      phone: '13600000000',
-      email: 'admin@react.com',
-      desc: '超级管理员',
-      conditions: 1,
-      roles: [1, 2, 3],
-    },
+    userBasicInfo: user,
     menus: data,
   };
   return (

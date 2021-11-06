@@ -1,22 +1,28 @@
-import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Layout, Tooltip, Menu, Dropdown } from 'antd';
+import useFullScreen from '@/hooks/useFullScreen';
 import {
-  MenuFoldOutlined,
-  FullscreenOutlined,
-  FullscreenExitOutlined,
-  GithubOutlined,
   ChromeOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
+  GithubOutlined,
   LogoutOutlined,
+  MenuFoldOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
-import useFullScreen from '@/hooks/useFullScreen';
-
+import { Dropdown, Layout, Menu, Tooltip } from 'antd';
+import { inject, observer } from 'mobx-react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './index.css';
 const { Header } = Layout;
 
-import './index.css';
-
-const AdminHeader = ({ collapsed, userinfo: { userBasicInfo }, onToggle, onLogout }) => {
+const AdminHeader = ({
+  collapsed,
+  onToggle,
+  onLogout,
+  adminStore: {
+    data: { user },
+  },
+}) => {
   const [fullScreen, requestFullScreen, exitFullScreen] = useFullScreen();
 
   const FullScreen = () => (
@@ -71,7 +77,7 @@ const AdminHeader = ({ collapsed, userinfo: { userBasicInfo }, onToggle, onLogou
     >
       <div className="userhead all_center">
         <SmileOutlined />
-        <span className="username">{userBasicInfo.username}</span>
+        <span className="username">{user?.username}</span>
       </div>
     </Dropdown>
   );
@@ -89,10 +95,10 @@ const AdminHeader = ({ collapsed, userinfo: { userBasicInfo }, onToggle, onLogou
       <Toggler />
       <div className="rightBox">
         <FullScreen />
-        {userBasicInfo ? <UserInfo /> : <Login />}
+        {user ? <UserInfo /> : <Login />}
       </div>
     </Header>
   );
 };
 
-export default AdminHeader;
+export default inject('adminStore')(observer(AdminHeader));
