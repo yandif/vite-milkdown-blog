@@ -5,9 +5,12 @@ export const Account = {
     return post('/login', data);
   },
   getMenus() {
-    return get('/menus')
+    return get('/menus');
   },
   getUserInfo() {
-    return get('/account/me')
-  }
+    return get('/account/me');
+  },
+  getPageList() {
+    return get('/account');
+  },
 };

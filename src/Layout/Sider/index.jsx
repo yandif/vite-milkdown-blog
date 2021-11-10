@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash';
 import { inject, observer } from 'mobx-react';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './index.css';
+import './index.less';
 
 const { Sider } = Layout;
 const { SubMenu, Item } = Menu;

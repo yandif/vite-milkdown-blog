@@ -1,4 +1,6 @@
 import { message as Message } from '@/components/Message/index';
+import { stores } from '@/store/index';
+
 import { TOKEN } from '@/constants';
 import axios from 'axios';
 
@@ -32,7 +34,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     const { code, message, result, status } = response?.data;
-    if (code) {
+
+    if (code === 10043) {
+      Message.error(message);
+      stores.adminStore.setUser(null);
+    }
+
+    if (code === 1) {
       if (status === 500) {
         Message.error('服务器错误');
       } else if (status === 404) {
@@ -40,8 +48,6 @@ instance.interceptors.response.use(
       } else {
         Message.error(message);
       }
-    } else {
-      // Message.success(message);
     }
     return Promise.resolve({ code, message, data: result });
   },

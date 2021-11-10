@@ -1,31 +1,29 @@
 import LogoImg from '@/assets/img/logo.png';
 import { LOGININFO, TOKEN } from '@/constants';
 import { Account } from '@/services';
+import Tool from '@/utils/tool';
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 const LoginForm = ({ prefix, setUser, history }) => {
   const [show, setShow] = useState(false);
-  useEffect(() => {
-    setShow(true);
-  }, []);
-
   const [loading, setLoading] = useState(false);
   const [rememberPassword, setRememberPassword] = useState(false);
 
   const [form] = Form.useForm();
 
   useEffect(() => {
+    setShow(true);
     const loginInfo = localStorage.getItem(LOGININFO);
     if (loginInfo) {
-      const loginInfoObj = JSON.parse(loginInfo);
+      const { username, password } = JSON.parse(loginInfo);
 
       setRememberPassword(true);
 
       form.setFieldsValue({
-        username: loginInfoObj.username,
-        password: loginInfoObj.password,
+        username: Tool.uncompile(username),
+        password: Tool.uncompile(password),
       });
     }
     if (!loginInfo) {
@@ -49,8 +47,8 @@ const LoginForm = ({ prefix, setUser, history }) => {
         localStorage.setItem(
           LOGININFO,
           JSON.stringify({
-            username: username,
-            password: password,
+            username: Tool.compile(username),
+            password: Tool.compile(password),
           })
         );
       } else {
