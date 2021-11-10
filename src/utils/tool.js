@@ -14,5 +14,15 @@ const Tool = {
     }
     return c;
   },
+
+  genURLSearchParams(obj = {}) {
+    const search = new URLSearchParams();
+    Object.keys(obj).forEach(key => {
+      const value = obj[key];
+      !!value && search.append(key, value);
+    });
+    const searchString = search.toString();
+    return searchString.length > 0 ? `?${searchString}` : '';
+  },
 };
 export default Tool;

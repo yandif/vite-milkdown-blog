@@ -1,4 +1,5 @@
 import { get, post } from '@/utils/axios';
+import Tool from '@/utils/tool';
 
 export const Account = {
   Login(data) {
@@ -10,7 +11,7 @@ export const Account = {
   getUserInfo() {
     return get('/account/me');
   },
-  getPageList() {
-    return get('/account');
+  getPageList(params) {
+    return get(`/account${Tool.genURLSearchParams(params)}`);
   },
 };

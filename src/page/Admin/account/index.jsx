@@ -2,18 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { useSetState, useMount } from 'react-use';
 import { Account as AccountService } from '@/services';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Form,
-  Button,
-  Input,
-  Table,
-  message,
-  Popconfirm,
-  Modal,
-  Tooltip,
-  Divider,
-  Select,
-} from 'antd';
+import { message } from '@/components/Message';
+import { Form, Button, Input, Table, Popconfirm, Modal, Tooltip, Divider, Select } from 'antd';
 import {
   EyeOutlined,
   EditOutlined,
@@ -40,52 +30,37 @@ const Account = () => {
 
   // 分页相关参数
   const [page, setPage] = useSetState({
-    pageNum: 1,
+    pageNumber: 1,
     pageSize: 10,
     total: 0,
   });
+
+  const renderStatus = value => {
+    const statusFlag = value === 1;
+    return <span style={{ color: statusFlag ? 'green' : 'red' }}>{statusFlag ? '启用' : ''}</span>;
+  };
   // table字段
   const tableColumns = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
-    },
-    {
-      title: '用户名',
-      dataIndex: 'username',
-      key: 'username',
-    },
-    {
-      title: '电话',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: '邮箱',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: '描述',
-      dataIndex: 'desc',
-      key: 'desc',
-    },
-    {
-      title: '状态',
-      dataIndex: 'status',
-      key: 'status',
-      render: v =>
-        v === 1 ? (
-          <span style={{ color: 'green' }}>启用</span>
-        ) : (
-          <span style={{ color: 'red' }}>禁用</span>
-        ),
-    },
+    { title: 'ID', dataIndex: 'id' },
+    { title: '用户名', dataIndex: 'username' },
+    { title: '电话', dataIndex: 'mobile' },
+    { title: '邮箱', dataIndex: 'email' },
+    { title: '状态', dataIndex: 'status', render: renderStatus },
   ];
-  const loadData = async () => {
-    const res = await AccountService.getPageList();
-    setData(res?.data?.data);
+
+  tableColumns.forEach(column => {
+    column.key = column.dataIndex;
+  });
+
+  const loadData = async params => {
+    setLoading(true);
+    const res = await AccountService.getPageList(params);
+    if (res.code === 0) {
+      const { data, ...rest } = res?.data;
+      setData(data);
+      setPage(rest);
+    }
+    setLoading(false);
   };
 
   useMount(() => {
@@ -93,22 +68,31 @@ const Account = () => {
   });
 
   const tableData = useMemo(() => {
-    return data.map((item, index) => {
-      return {
-        key: index,
-        id: item.id,
-        username: item.username,
-        password: item.password,
-        phone: item.phone,
-        email: item.email,
-        desc: item.desc,
-        status: item.status,
-        control: item.id,
-        roles: item.roles,
-      };
-    });
+    return data?.map(account => ({
+      key: account?.id,
+      ...account,
+    }));
   }, [page, data]);
 
-  return <Table columns={tableColumns} loading={loading} dataSource={tableData} />;
+  // 表格页码改变
+  const onTablePageChange = (pageNumber, pageSize) => {
+    loadData({ pageNumber, pageSize });
+  };
+  console.log(tableData);
+  return (
+    <Table
+      columns={tableColumns}
+      loading={loading}
+      dataSource={tableData}
+      pagination={{
+        total: page.total,
+        current: page.pageNumber,
+        pageSize: page.pageSize,
+        showQuickJumper: true,
+        showTotal: (total, range) => `共 ${total} 条数据`,
+        onChange: onTablePageChange,
+      }}
+    />
+  );
 };
 export default Account;

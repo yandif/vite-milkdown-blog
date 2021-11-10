@@ -13,7 +13,7 @@ const setUser = action(value => {
 const disposer = intercept(data, 'user', change => {
   const { newValue } = change;
   if (newValue) {
-    console.log(newValue);
+    // console.log(newValue);
   }
   return change;
   // disposer();//停止监听
