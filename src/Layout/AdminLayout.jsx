@@ -110,28 +110,30 @@ const AdminLayout = props => {
         />
       )}
       <Layout key="admin-layout2">
-        {!hidden && [
+        {!hidden && (
           <Header
             key="admin-header"
             collapsed={collapsed}
             userinfo={userinfo}
             onToggle={() => setCollapsed(!collapsed)}
             onLogout={handleLogout}
-          />,
-          <Bread key="admin-bread" menus={userinfo.menus} location={location} />,
-        ]}
-        <Content
-          key="admin-content"
-          style={{
-            margin: '0 16px',
-            padding: 16,
-            minHeight: 280,
-            backgroundColor: '#fff',
-          }}
-        >
-          {children}
-        </Content>
-        {!hidden && <Footer key="admin-footer" />}
+          />
+        )}
+        <div style={{ maxHeight: 'calc(100vh - 66px)', overflowY: 'auto' }}>
+          {!hidden && <Bread key="admin-bread" menus={userinfo.menus} location={location} />}
+          <Content
+            key="admin-content"
+            style={{
+              margin: '0 16px',
+              padding: 16,
+              minHeight: 'calc(100vh - 173px)',
+              backgroundColor: '#fff',
+            }}
+          >
+            {children}
+          </Content>
+          {!hidden && <Footer key="admin-footer" />}
+        </div>
       </Layout>
     </Layout>
   );
