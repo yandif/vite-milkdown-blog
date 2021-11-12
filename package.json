@@ -7,7 +7,7 @@
     "build": "vite build --mode development",
     "build:beta": "vite build --mode beta",
     "build:release": "vite build --mode release",
-    "serve": "vite preview",
+    "serve": "vite preview --mode development",
     "npm:install": "rimraf node_modules"
   },
   "dependencies": {

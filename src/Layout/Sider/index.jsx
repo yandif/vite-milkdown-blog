@@ -13,13 +13,21 @@ const { SubMenu, Item } = Menu;
 const AdminSider = ({ collapsed, location, history, data }) => {
   const [chosedKey, setChosedKey] = useState([]); // 当前选中
   const [openKeys, setOpenKeys] = useState([]); // 当前需要被展开的项
-
-  // 当页面路由跳转时，即location发生改变，则更新选中项
-  useEffect(() => {
+  const initSelectKey = () => {
     const paths = location.pathname.split('/').filter(item => !!item);
     setChosedKey([location.pathname]);
     setOpenKeys(paths.map(item => `/${item}`));
+  };
+  // 当页面路由跳转时，即location发生改变，则更新选中项
+  useEffect(() => {
+    initSelectKey();
   }, [location]);
+
+  useEffect(() => {
+    if (!collapsed) {
+      initSelectKey();
+    }
+  }, [collapsed]);
 
   // ==================
   // 私有方法
@@ -106,7 +114,7 @@ const AdminSider = ({ collapsed, location, history, data }) => {
         theme="dark"
         mode="inline"
         selectedKeys={chosedKey}
-        {...(collapsed ? {} : { openKeys })}
+        openKeys={openKeys}
         onOpenChange={keys => setOpenKeys(keys)}
         onSelect={onSelect}
       >

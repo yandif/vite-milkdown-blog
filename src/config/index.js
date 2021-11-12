@@ -4,8 +4,8 @@ const config = {
     apiBaseUrl: '/api',
   },
   beta: {
-    cdn: '//s.xxx.com/vite-react-app/beta',
-    apiBaseUrl: '//www.beta.xxx.com/v1',
+    cdn: './',
+    apiBaseUrl: '//localhost:80/v1/api',
   },
   release: {
     cdn: '//s.xxx.com/vite-react-app/release',

@@ -11,7 +11,7 @@ const themeVariables = lessToJS(
 )
 
 const base = config[process.argv[process.argv.length - 1]]
-
+console.log(base)
 // https://vitejs.dev/config/
 export default defineConfig({
   base: base.cdn,
