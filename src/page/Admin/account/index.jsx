@@ -1,11 +1,15 @@
+import { message } from '@/components/Message';
+import { EDIT, VIEW } from '@/constants';
 import { Account as AccountService } from '@/services';
-import { Table } from 'antd';
-import React, { useMemo, useState } from 'react';
+import { DeleteOutlined, EditOutlined, EyeOutlined, ToolOutlined } from '@ant-design/icons';
+import { Divider, Popconfirm, Table, Tooltip } from 'antd';
+import React, { useMemo, useRef, useState } from 'react';
 import { useMount, useSetState } from 'react-use';
-import AddForm from './AddForm';
+import FormView from './FormView';
 import './index.less';
 
 const Account = () => {
+  const formRef = useRef();
   // 数据是否正在加载中
   const [loading, setLoading] = useState(false);
   // 数据
@@ -56,11 +60,82 @@ const Account = () => {
   };
   // table字段
   const tableColumns = [
-    { title: 'ID', dataIndex: 'id' },
+    { title: 'ID', dataIndex: 'id', width: 100 },
     { title: '用户名', dataIndex: 'username' },
     { title: '电话', dataIndex: 'mobile' },
     { title: '邮箱', dataIndex: 'email' },
-    { title: '状态', dataIndex: 'status', render: renderStatus },
+    { title: '状态', dataIndex: 'status', render: renderStatus, width: 100 },
+    {
+      title: '操作',
+      key: 'control',
+      width: 200,
+      render: (v, record) => {
+        const controls = [];
+
+        controls.push(
+          <span key="0" className="control-btn-green">
+            <Tooltip placement="top" title="查看">
+              <EyeOutlined
+                onClick={() => {
+                  formRef?.current?.showModal({ data: record, type: VIEW });
+                }}
+              />
+            </Tooltip>
+          </span>
+        );
+
+        controls.push(
+          <span key="1" className="control-btn-blue">
+            <Tooltip placement="top" title="修改">
+              <ToolOutlined
+                onClick={() => {
+                  formRef?.current?.showModal({ data: record, type: EDIT });
+                }}
+              />
+            </Tooltip>
+          </span>
+        );
+
+        controls.push(
+          <span key="2" className="control-btn-blue">
+            <Tooltip placement="top" title="分配角色">
+              <EditOutlined />
+            </Tooltip>
+          </span>
+        );
+
+        // controls.push(
+        //   <Popconfirm
+        //     key="3"
+        //     title="确定删除吗?"
+        //     onConfirm={async () => {
+        //       const res = await AccountService.deleteUser(record.id);
+        //       if (res.code === 0) {
+        //         message.success('删除成功');
+        //         loadData(page);
+        //       }
+        //     }}
+        //     okText="确定"
+        //     cancelText="取消"
+        //   >
+        //     <span className="control-btn-red">
+        //       <Tooltip placement="top" title="删除">
+        //         <DeleteOutlined />
+        //       </Tooltip>
+        //     </span>
+        //   </Popconfirm>
+        // );
+
+        const result = [];
+        controls.forEach((item, index) => {
+          if (index) {
+            result.push(<Divider key={`line${index}`} type="vertical" />);
+          }
+          result.push(item);
+        });
+        return result;
+      },
+    },
   ];
   //添加key
   tableColumns.forEach(column => {
@@ -70,7 +145,14 @@ const Account = () => {
   return (
     <div className="account-main">
       <div className="account-main-header">
-        <AddForm />
+        <FormView
+          action={{
+            query: () => {
+              loadData(page);
+            },
+          }}
+          formRef={formRef}
+        />
       </div>
       <Table
         columns={tableColumns}
@@ -78,7 +160,7 @@ const Account = () => {
         dataSource={tableData}
         pagination={pagination}
         size="middle"
-        scroll={{ y: 440 }}
+        scroll={{ y: 374 }}
       />
     </div>
   );

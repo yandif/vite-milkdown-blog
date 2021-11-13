@@ -108,5 +108,37 @@ export const put = (url, data, config = {}) => {
       });
   });
 };
+export const patch = (url, data, config = {}) => {
+  return new Promise((resolve, reject) => {
+    instance({
+      method: 'patch',
+      url,
+      data,
+      ...config,
+    })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
 
+export const del = (url, params, config = {}) => {
+  return new Promise((resolve, reject) => {
+    instance({
+      method: 'delete',
+      url,
+      params,
+      ...config,
+    })
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
 export default instance;

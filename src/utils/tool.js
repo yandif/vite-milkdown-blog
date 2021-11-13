@@ -24,5 +24,15 @@ const Tool = {
     const searchString = search.toString();
     return searchString.length > 0 ? `?${searchString}` : '';
   },
+
+  checkPhone(str) {
+    const rex = /^1[34578]\d{9}$/;
+    return rex.test(String(str));
+  },
+
+  checkEmail(str) {
+    const rex = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/;
+    return rex.test(str);
+  },
 };
 export default Tool;
