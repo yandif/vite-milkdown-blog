@@ -10,6 +10,7 @@ import Home from './Home';
 import Login from './Login';
 
 const AccountView = asyncRouter(() => import('./Account'));
+const RoleView = asyncRouter(() => import('./Role'));
 
 const AdminRouter = props => {
   const {
@@ -30,6 +31,7 @@ const AdminRouter = props => {
   registerRoute({ path: '/home', component: Home, auth: true });
   registerRoute({ path: '/login', component: Login, hidden: true });
   registerRoute({ path: '/system/account', component: AccountView, auth: true });
+  registerRoute({ path: '/system/role', component: RoleView, auth: true });
   registerRoute({ path: '*', component: NoMatch, auth: true });
 
   const hiddenPath = routes?.filter(({ hidden }) => hidden).map(({ path }) => path);

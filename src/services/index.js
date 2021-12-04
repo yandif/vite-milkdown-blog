@@ -24,3 +24,18 @@ export const Account = {
     return del(`/account/${id}`);
   },
 };
+
+export const Role = {
+  getPageList(params) {
+    return get(`/role${Tool.genURLSearchParams(params)}`);
+  },
+  create(data) {
+    return post('/role', data);
+  },
+  edit(id, data) {
+    return patch(`/role/${id}`, data);
+  },
+  deleteRole(id) {
+    return del(`/role/${id}`);
+  },
+};
