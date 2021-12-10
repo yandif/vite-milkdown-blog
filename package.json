@@ -1,64 +1,26 @@
 {
-  "name": "vite-react-app",
-  "version": "0.0.1",
+  "name": "vite-ts-react",
+  "version": "0.0.0",
   "scripts": {
-    "commit": "git add . && git-cz && git push",
-    "dev": "vite --mode development",
-    "build": "vite build --mode development",
-    "build:beta": "vite build --mode beta",
-    "build:release": "vite build --mode release",
-    "serve": "vite preview --mode development",
-    "npm:install": "rimraf node_modules"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.6.4",
-    "@icon-park/react": "^1.3.3",
-    "@milkdown/core": "^4.12.0",
-    "@milkdown/plugin-clipboard": "^4.12.0",
-    "@milkdown/plugin-cursor": "^4.12.0",
-    "@milkdown/plugin-emoji": "^4.12.0",
-    "@milkdown/plugin-history": "^4.12.0",
-    "@milkdown/plugin-listener": "^4.12.0",
-    "@milkdown/plugin-math": "^4.12.0",
-    "@milkdown/plugin-prism": "^4.12.0",
-    "@milkdown/plugin-slash": "^4.12.0",
-    "@milkdown/plugin-tooltip": "^4.12.0",
-    "@milkdown/preset-gfm": "^4.12.0",
-    "@milkdown/react": "^4.12.0",
-    "@milkdown/theme-nord": "^4.12.0",
-    "antd": "^4.16.13",
-    "axios": "^0.23.0",
-    "lodash": "^4.17.21",
-    "mobx": "^6.3.3",
-    "mobx-react": "^7.2.0",
-    "prism-themes": "^1.9.0",
-    "qs": "^6.10.1",
+    "less": "^4.1.2",
+    "mobx": "^6.3.8",
+    "mobx-react": "^7.2.1",
     "react": "^17.0.2",
-    "react-anime": "^4.1.1",
-    "react-beautiful-dnd": "^13.1.0",
-    "react-dom": "^17.0.2",
-    "react-helmet": "^6.1.0",
-    "react-hot-toast": "^2.1.1",
-    "react-loadable": "^5.5.0",
-    "react-router-dom": "^5.3.0",
-    "react-use": "^17.3.1",
-    "use-media": "^1.4.0",
-    "winbox-react": "^1.0.4"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-react-refresh": "^1.3.6",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog-chinese": "^2.3.0",
-    "less": "^4.1.1",
-    "less-vars-to-js": "^1.3.0",
-    "rimraf": "^3.0.2",
-    "vite": "^2.5.10",
-    "vite-plugin-babel-import": "^2.0.5",
-    "vite-plugin-imp": "^2.0.9"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog-chinese"
-    }
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-legacy": "^1.6.4",
+    "@vitejs/plugin-react": "^1.0.7",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.0",
+    "vite-plugin-mkcert": "^1.5.2",
+    "vite-tsconfig-paths": "^3.3.17"
   }
 }
