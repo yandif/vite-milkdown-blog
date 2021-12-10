@@ -10,6 +10,7 @@ specifiers:
   mobx-react: ^7.2.1
   react: ^17.0.2
   react-dom: ^17.0.2
+  react-hot-toast: ^2.1.1
   typescript: ^4.4.4
   vite: ^2.7.0
   vite-plugin-mkcert: ^1.5.2
@@ -21,6 +22,7 @@ dependencies:
   mobx-react: 7.2.1_02876c366ce89e988b8bf5dff3cf0e00
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
+  react-hot-toast: 2.1.1_react-dom@17.0.2+react@17.0.2
 
 devDependencies:
   '@types/react': 17.0.37
@@ -838,6 +840,12 @@ packages:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
 
+  /goober/2.1.0:
+    resolution: {integrity: sha512-UdKKZ1boKFaJWlQYlHlp/1jpnrZIkfYWM0zuyQTY7tF9Cs+uHDlQk1kB5vexmZssw4R8iLMjmVUd0wKcaweGfQ==}
+    peerDependencies:
+      csstype: ^2.6.2
+    dev: false
+
   /graceful-fs/4.2.8:
     resolution: {integrity: sha512-qkIilPUYcNhJpd33n0GBXTB1MMPp14TxEsEs0pTrsSVucApsYzW5V+Q8Qxhik6KU3evy+qkAAowTByymK0avdg==}
     requiresBuild: true
@@ -1100,6 +1108,20 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
+    dev: false
+
+  /react-hot-toast/2.1.1_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-Odrp4wue0fHh0pOfZt5H+9nWCMtqs3wdlFSzZPp7qsxfzmbE26QmGWIh6hG43CukiPeOjA8WQhBJU8JwtWvWbQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      goober: 2.1.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    transitivePeerDependencies:
+      - csstype
     dev: false
 
   /react-refresh/0.11.0:

@@ -2,10 +2,13 @@ import ReactDOM from 'react-dom';
 import '@/assets/style/main.less';
 import App from './App';
 import MobxProvider from '@/store';
+import MessageProvider from '@/components/Message';
 
 ReactDOM.render(
   <MobxProvider>
-    <App />
+    <MessageProvider>
+      <App />
+    </MessageProvider>
   </MobxProvider>,
   document.getElementById('root')
 );
