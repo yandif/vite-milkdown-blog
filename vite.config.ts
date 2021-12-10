@@ -18,7 +18,7 @@ export default defineConfig({
     mkcert(),
   ],
   server: {
-    https: true,
+    https: false,
     port: 3002,
     proxy: {
       "/api": {

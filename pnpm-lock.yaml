@@ -16,6 +16,7 @@ specifiers:
   vite: ^2.7.0
   vite-plugin-mkcert: ^1.5.2
   vite-tsconfig-paths: ^3.3.17
+  winbox: ^0.2.1
 
 dependencies:
   antd: 4.17.3_react-dom@17.0.2+react@17.0.2
@@ -25,6 +26,7 @@ dependencies:
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-hot-toast: 2.1.1_react-dom@17.0.2+react@17.0.2
+  winbox: 0.2.1
 
 devDependencies:
   '@types/react': 17.0.37
@@ -2026,6 +2028,10 @@ packages:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
     dev: true
+
+  /winbox/0.2.1:
+    resolution: {integrity: sha512-K3PY+y+aWpkCpECGF2TqSi4w+OT+cuJHWbOKBjVerpexmdC6Is5m4y0gZ9rbxU2K+GszE1nH+d2okMAQTG05hg==}
+    dev: false
 
   /wrappy/1.0.2:
     resolution: {integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=}
