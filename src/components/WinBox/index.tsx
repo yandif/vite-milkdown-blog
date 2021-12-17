@@ -1,30 +1,31 @@
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
-import WinBox from 'winbox/src/js/winbox'
-import 'winbox/dist/css/winbox.min.css'
-import 'winbox/dist/css/themes/modern.min.css'
+import React, { createContext, useContext, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+import WinBox from 'winbox/src/js/winbox';
+import 'winbox/src/css/winbox.less';
+import './themes/modern.less';
 
-const WinboxReact = ({
-  title,
-  border,
-  background,
-  className,
-  x,
-  y,
-  width,
-  height,
-  top,
-  right,
-  bottom,
-  left,
-  modal,
-  children,
-  modern,
-  onClose
-}) => {
-  const wb = new WinBox(title, {
-    border,
-    background,
+const Store = createContext();
+
+export default Store;
+
+export const useWinBox = () => {
+  const { open } = useContext(Store);
+  return { open };
+};
+
+/**
+ *  弹出框组件
+ */
+export const WinBoxProvider = (props) => {
+  const { children } = props;
+  const ref = useRef('winbox');
+  const [box, setBox] = useState([]);
+
+  const open = ({
+    title = '弹窗',
+    border = '0',
+    background = '#28292d',
+    className,
     x,
     y,
     width,
@@ -33,25 +34,51 @@ const WinboxReact = ({
     right,
     bottom,
     left,
-    modal,
-    html: `${ReactDOMServer.renderToStaticMarkup(children)}`,
-    class: `${modern ? 'modern' : className ? `${className}` : ''}`,
-    onclose: () => onClose()
-  })
+    modal = false,
+    children,
+    modern = true,
+    onClose = () => {},
+  }) => {
+    const wb = new WinBox(title, {
+      root: ref.current,
+      border,
+      background,
+      x,
+      y,
+      width,
+      height,
+      top,
+      right,
+      bottom,
+      left,
+      modal,
+      class: `${modern ? 'modern' : className ? `${className}` : ''}`,
+      onclose: () => {
+        ReactDOM.unmountComponentAtNode(
+          document.querySelector(`#${wb.id} .wb-body`)
+        );
+        box.splice(
+          box.findIndex(({ id }) => id === wb.id),
+          1
+        );
+        setBox([...box]);
+        onClose();
+      },
+    });
+    ReactDOM.render(
+      React.cloneElement(children, { wb }),
+      document.querySelector(`#${wb.id} .wb-body`)
+    );
+    setBox([...box, wb]);
+    return wb;
+  };
 
-  return <div></div>
-}
+  const value = { ...props, open };
 
-const func = () => {}
-
-WinboxReact.defaultProps = {
-  title: 'Winbox React Title',
-  border: '0',
-  background: '#28292d',
-  x: 0,
-  y: 0,
-  modal: false,
-  onClose: func
-}
-
-export default React.memo(WinboxReact)
+  return (
+    <Store.Provider value={value}>
+      {children}
+      <div ref={ref}></div>
+    </Store.Provider>
+  );
+};

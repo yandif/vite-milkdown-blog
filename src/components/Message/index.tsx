@@ -1,6 +1,9 @@
 import React, { ReactElement, FunctionComponent } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
+/**
+ *  消息提示组件
+ */
 const MessageProvider: FunctionComponent = ({ children }) => {
   return (
     <>

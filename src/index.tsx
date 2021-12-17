@@ -1,21 +1,23 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import MobxProvider from '@/store';
-import { ConfigProvider } from 'antd';
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
 
 import MessageProvider from '@/components/Message';
 import App from './App';
 
-import 'antd/dist/antd.css';
+import { WinBoxProvider } from '@/components/WinBox';
+
 import '@/assets/style/main.less';
 
 ReactDOM.render(
-  <MobxProvider>
-    <MessageProvider>
-      <ConfigProvider locale={zh_CN}>
-        <App />
-      </ConfigProvider>
-    </MessageProvider>
-  </MobxProvider>,
+  <React.StrictMode>
+    <MobxProvider>
+      <MessageProvider>
+        <WinBoxProvider>
+          <App />
+        </WinBoxProvider>
+      </MessageProvider>
+    </MobxProvider>{' '}
+  </React.StrictMode>,
   document.getElementById('root')
 );
