@@ -3,7 +3,7 @@ import Background from '@/components/Background';
 import MessageProvider, { message } from '@/components/Message';
 import { useEffect, useState } from 'react';
 import cat from '@/assets/img/cat.jpg';
-
+import { Button } from 'antd';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 
 const exampleCode = `
@@ -61,20 +61,21 @@ export default function App() {
   return (
     <div>
       {y}
-      <button
+      <Button
+        type="primary"
         onClick={() => {
           winbox.open({ children: <A setY={setY} /> });
         }}
       >
         新建A
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           winbox.open({ children: <B /> });
         }}
       >
         新建B
-      </button>
+      </Button>
     </div>
   );
 }
