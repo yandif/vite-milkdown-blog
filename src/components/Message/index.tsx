@@ -1,4 +1,4 @@
-import React, { ReactElement, FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 /**

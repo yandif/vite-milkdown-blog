@@ -1,10 +1,8 @@
+import { message } from '@/components/Message';
 import { useWinBox } from '@/components/WinBox';
-import Background from '@/components/Background';
-import MessageProvider, { message } from '@/components/Message';
-import { useEffect, useState } from 'react';
-import cat from '@/assets/img/cat.jpg';
 import { Button } from 'antd';
 import Highlight, { defaultProps } from 'prism-react-renderer';
+import { useState } from 'react';
 
 const exampleCode = `
 (function someDemo() {
@@ -14,6 +12,7 @@ const exampleCode = `
 
 return () => <App />;
 `;
+
 const B = ({ wb }) => {
   console.log(wb);
   return (
@@ -21,9 +20,9 @@ const B = ({ wb }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
           {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
+            <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
+                <span key={key} {...getTokenProps({ token, key })} />
               ))}
             </div>
           ))}
@@ -45,7 +44,7 @@ const A = ({ wb, setY }) => {
         message.success(
           <div>
             <b>Awesome!</b>
-            <div>Isn't it?</div>
+            <div>Isn&apos;t it?</div>
           </div>
         );
       }}
@@ -56,7 +55,7 @@ const A = ({ wb, setY }) => {
 };
 
 export default function App() {
-  let winbox = useWinBox();
+  const winbox = useWinBox();
   const [y, setY] = useState(1);
   return (
     <div>

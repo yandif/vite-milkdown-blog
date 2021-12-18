@@ -18,7 +18,7 @@ const MobxProvider: FunctionComponent = ({ children }) => {
 export default MobxProvider;
 
 declare global {
-  var _____APP_STATE_____: any;
+  let _____APP_STATE_____: unknown;
 }
 // 方便调试
 window._____APP_STATE_____ = stores;

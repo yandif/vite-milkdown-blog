@@ -1,4 +1,4 @@
-import { action, intercept, observable } from "mobx";
+import { action, intercept, observable } from 'mobx';
 
 const data = observable({
   user: null,
@@ -10,7 +10,7 @@ const setUser: (value: any) => void = action((value: any) => {
   data.user = value;
 });
 
-const disposer = intercept(data, "user", (change) => {
+const disposer = intercept(data, 'user', (change) => {
   const { newValue } = change;
   if (newValue) {
     // console.log(newValue);
