@@ -33,7 +33,7 @@ const B = ({ wb }) => {
   );
 };
 
-const A = ({ wb }) => {
+const A = ({ wb, setY }) => {
   console.log(wb);
   const [x, setX] = useState(1);
   return (
@@ -41,6 +41,7 @@ const A = ({ wb }) => {
       style={{ margin: '100px' }}
       onClick={() => {
         setX(x + 1);
+        setY(x + 1);
         message.success(
           <div>
             <b>Awesome!</b>
@@ -56,11 +57,13 @@ const A = ({ wb }) => {
 
 export default function App() {
   let winbox = useWinBox();
+  const [y, setY] = useState(1);
   return (
     <div>
+      {y}
       <button
         onClick={() => {
-          winbox.open({ children: <A /> });
+          winbox.open({ children: <A setY={setY} /> });
         }}
       >
         新建A
