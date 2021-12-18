@@ -16,6 +16,7 @@ specifiers:
   less: ^4.1.2
   mobx: ^6.3.8
   mobx-react: ^7.2.1
+  prettier: ^2.5.1
   prism-react-renderer: ^1.2.1
   react: ^17.0.2
   react-dom: ^17.0.2
@@ -49,6 +50,7 @@ devDependencies:
   '@vitejs/plugin-react': 1.1.1
   eslint: 8.5.0
   eslint-plugin-react: 7.27.1_eslint@8.5.0
+  prettier: 2.5.1
   typescript: 4.5.3
   vite: 2.7.1_less@4.1.2
   vite-plugin-mkcert: 1.5.2
@@ -2203,6 +2205,12 @@ packages:
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: true
+
+  /prettier/2.5.1:
+    resolution: {integrity: sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
     dev: true
 
   /prism-react-renderer/1.2.1_react@17.0.2:
