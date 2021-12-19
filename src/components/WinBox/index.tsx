@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import WinBox from 'winbox/src/js/winbox';
 import 'winbox/src/css/winbox.less';
@@ -37,7 +37,7 @@ export const WinBoxProvider = (props) => {
     modal = false,
     children,
     modern = true,
-    onClose = () => {},
+    onClose = () => {}
   }) => {
     const wb = new WinBox(title, {
       root: ref.current,
@@ -63,7 +63,7 @@ export const WinBoxProvider = (props) => {
         );
         setBox([...box]);
         onClose();
-      },
+      }
     });
     ReactDOM.render(
       React.cloneElement(children, { wb }),

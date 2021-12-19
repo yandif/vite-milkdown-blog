@@ -1,14 +1,16 @@
 import { Provider } from 'mobx-react';
 import React, { FunctionComponent } from 'react';
-import type { AdminStore } from './adminStore';
-import adminStore from './adminStore';
+import AppStore, { AppStoreType } from './AppStore';
+import AdminStore, { AdminStoreType } from './AdminStore';
 
 type Store = {
-  adminStore: AdminStore;
+  AdminStore: AdminStoreType;
+  AppStore: AppStoreType;
 };
 
 export const stores: Store = {
-  adminStore,
+  AppStore,
+  AdminStore
 };
 
 const MobxProvider: FunctionComponent = ({ children }) => {
@@ -17,8 +19,8 @@ const MobxProvider: FunctionComponent = ({ children }) => {
 
 export default MobxProvider;
 
-declare global {
-  let _____APP_STATE_____: unknown;
-}
 // 方便调试
-window._____APP_STATE_____ = stores;
+window.__APP_STATE__ = stores;
+declare global {
+  let __APP_STATE__: Store;
+}

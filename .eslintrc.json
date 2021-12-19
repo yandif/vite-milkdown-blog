@@ -19,7 +19,8 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "indent": ["error", 2], // 缩进
+    "indent": "off", // 缩进
+    "@typescript-eslint/indent": ["error", 2],
     "linebreak-style": "off",
     "quotes": ["error", "single"],
     "semi": ["error", "always"],

@@ -6,9 +6,17 @@ const data = observable({
   menus: [],
 });
 
-const setUser: (value: any) => void = action((value: any) => {
-  data.user = value;
+const setCurrentUser = action((user: object) => {
+  data.user = user;
 });
+
+const AdminStore: AdminStoreType = {
+  data,
+  setCurrentUser,
+};
+
+export default AdminStore;
+
 
 const disposer = intercept(data, 'user', (change) => {
   const { newValue } = change;
@@ -19,14 +27,7 @@ const disposer = intercept(data, 'user', (change) => {
   // disposer();//停止监听
 });
 
-export type AdminStore = {
-  data: any;
-  setUser: (value: any) => void;
+export type AdminStoreType = {
+  data: unknown;
+  setCurrentUser: (user: object) => void;
 };
-
-const adminStore: AdminStore = {
-  data,
-  setUser,
-};
-
-export default adminStore;
