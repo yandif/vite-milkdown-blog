@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@tanem/react-nprogress': ^3.0.82
   '@types/react': ^17.0.33
   '@types/react-dom': ^17.0.10
   '@types/winbox': ^0.2.1
@@ -31,6 +32,7 @@ specifiers:
   winbox: ^0.2.1
 
 dependencies:
+  '@tanem/react-nprogress': 3.0.82_react-dom@17.0.2+react@17.0.2
   '@types/winbox': 0.2.1
   antd: 4.17.3_react-dom@17.0.2+react@17.0.2
   axios: 0.24.0
@@ -562,6 +564,20 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.0
     dev: true
+
+  /@tanem/react-nprogress/3.0.82_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-dwpDMlMzPiEYT5SbCCVNIJ02V5UYjIyVTXTPam6Tt4xTYcmHpwURnmYwuqR9MCBalKJeAh9CeajLY/7hiw4ulg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0
+      react-dom: ^16.8.0 || ^17.0.0
+    dependencies:
+      '@babel/runtime': 7.16.5
+      hoist-non-react-statics: 3.3.2
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-use: 17.3.1_react-dom@17.0.2+react@17.0.2
+    dev: false
 
   /@types/js-cookie/2.2.7:
     resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==}
@@ -1731,6 +1747,12 @@ packages:
       '@babel/runtime': 7.16.5
     dev: false
 
+  /hoist-non-react-statics/3.3.2:
+    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
+    dependencies:
+      react-is: 16.13.1
+    dev: false
+
   /hyphenate-style-name/1.0.4:
     resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
     dev: false
@@ -2329,7 +2351,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: true
 
   /prr/1.0.1:
     resolution: {integrity: sha1-0/wRS6BplaRexok/SEzrHXj19HY=}

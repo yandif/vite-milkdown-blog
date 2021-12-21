@@ -19,8 +19,6 @@ const App = (props) => {
   useMount(() => initApp());
 
   const initApp = async () => {
-    setIsLoading(true);
-
     // 1.获取token
     const token = localStorage.getItem(TOKEN);
 
@@ -37,14 +35,24 @@ const App = (props) => {
           resolve();
         }, 10);
       });
-      
+
       setCurrentUser({ name: 'yandif', phone: 13080080000 });
     } catch (e) {
       //
     }
 
     setIsInit(true);
-    setIsLoading(false);
+
+    l();
+  };
+  const l = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+    setTimeout(() => {
+      l();
+    }, 3000);
   };
 
   return isInit && <RootRoute auth={user} />;

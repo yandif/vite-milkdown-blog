@@ -1,5 +1,5 @@
 import { Provider } from 'mobx-react';
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import AppStore, { AppStoreType } from './AppStore';
 import AdminStore, { AdminStoreType } from './AdminStore';
 
@@ -13,7 +13,7 @@ export const stores: Store = {
   AdminStore,
 };
 
-const MobxProvider: FunctionComponent = ({ children }) => {
+const MobxProvider: FC = ({ children }) => {
   return <Provider {...stores}>{children}</Provider>;
 };
 

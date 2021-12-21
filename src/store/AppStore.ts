@@ -1,7 +1,8 @@
-import { action, observable } from 'mobx';
+import { action, intercept, observable } from 'mobx';
 
 const data = observable({
   isLoading: false,
+  loadingKey: 0,
   isInit: false,
 });
 
@@ -11,6 +12,18 @@ const setIsLoading = action((value: boolean) => {
 
 const setIsInit = action((value: boolean) => {
   data.isInit = value;
+});
+
+const setLoadingKey = action((value: number) => {
+  data.loadingKey = value;
+});
+
+intercept(data, 'isLoading', (change) => {
+  const { newValue } = change;
+  if (newValue) {
+    setLoadingKey(data.loadingKey ^ 1)
+  }
+  return change;
 });
 
 const AppStore: AppStoreType = {
