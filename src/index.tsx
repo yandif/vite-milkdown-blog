@@ -22,7 +22,7 @@ ReactDOM.render(
           </WinBoxProvider>
         </MessageProvider>
       </ConfigProvider>
-    </MobxProvider>{' '}
+    </MobxProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

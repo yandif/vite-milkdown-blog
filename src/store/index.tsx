@@ -10,7 +10,7 @@ type Store = {
 
 export const stores: Store = {
   AppStore,
-  AdminStore
+  AdminStore,
 };
 
 const MobxProvider: FunctionComponent = ({ children }) => {
