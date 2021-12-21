@@ -6,13 +6,12 @@ import './index.less';
 const NProgressProvider: FC = ({
   AppStore: {
     data: { isLoading, loadingKey },
-    setIsLoading,
   },
   children,
 }) => {
   return (
     <>
-      <Progress isAnimating={isLoading} key={loadingKey} />
+      <Progress isAnimating={isLoading} key={loadingKey} color="#007aff" />
       {children}
     </>
   );

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-const Spinner: FC = () => (
+const Spinner: FC = ({ color }) => (
   <div
     style={{
       display: 'block',
@@ -12,14 +12,14 @@ const Spinner: FC = () => (
     <div
       style={{
         animation: '400ms linear infinite spinner',
-        borderBottom: '2px solid transparent',
-        borderLeft: '2px solid #29d',
+        borderBottom: '3px solid transparent',
+        borderLeft: `3px solid ${color}`,
         borderRadius: '50%',
-        borderRight: '2px solid transparent',
-        borderTop: '2px solid #29d',
+        borderRight: '3px solid transparent',
+        borderTop: `3px solid ${color}`,
         boxSizing: 'border-box',
-        height: 18,
-        width: 18,
+        height: 22,
+        width: 22,
       }}
     />
   </div>

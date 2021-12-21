@@ -1,12 +1,13 @@
 import { FC } from 'react';
 
-const Bar: FC<{ animationDuration: number; progress: number }> = ({
-  animationDuration,
-  progress,
-}) => (
+const Bar: FC<{
+  animationDuration: number;
+  progress: number;
+  color: string;
+}> = ({ animationDuration, progress, color }) => (
   <div
     style={{
-      background: '#007aff',
+      background: color,
       height: 3,
       left: 0,
       marginLeft: `${(-1 + progress) * 100}%`,
@@ -18,7 +19,7 @@ const Bar: FC<{ animationDuration: number; progress: number }> = ({
     }}>
     <div
       style={{
-        boxShadow: '0 0 10px #29d, 0 0 5px #007aff',
+        boxShadow: `0 0 10px ${color}, 0 0 5px ${color}`,
         display: 'block',
         height: '100%',
         opacity: 1,
