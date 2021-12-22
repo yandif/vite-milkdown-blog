@@ -11,7 +11,7 @@ const NProgressProvider: FC = ({
 }) => {
   return (
     <>
-      <Progress isAnimating={isLoading} key={loadingKey} color="#007aff" />
+      <Progress isAnimating={isLoading} key={loadingKey} color="#29d" />
       {children}
     </>
   );

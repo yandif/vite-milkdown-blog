@@ -37,7 +37,7 @@ export const WinBoxProvider = (props) => {
     modal = false,
     children,
     modern = true,
-    onClose = () => {}
+    onClose = () => {},
   }) => {
     const wb = new WinBox(title, {
       root: ref.current,
@@ -55,19 +55,19 @@ export const WinBoxProvider = (props) => {
       class: `${modern ? 'modern' : className ? `${className}` : ''}`,
       onclose: () => {
         ReactDOM.unmountComponentAtNode(
-          document.querySelector(`#${wb.id} .wb-body`)
+          document.querySelector(`#${wb.id} .wb-body`),
         );
         box.splice(
           box.findIndex(({ id }) => id === wb.id),
-          1
+          1,
         );
         setBox([...box]);
         onClose();
-      }
+      },
     });
     ReactDOM.render(
       React.cloneElement(children, { wb }),
-      document.querySelector(`#${wb.id} .wb-body`)
+      document.querySelector(`#${wb.id} .wb-body`),
     );
     setBox([...box, wb]);
     return wb;
@@ -77,8 +77,8 @@ export const WinBoxProvider = (props) => {
 
   return (
     <Store.Provider value={value}>
-      {children}
       <div ref={ref}></div>
+      {children}
     </Store.Provider>
   );
 };

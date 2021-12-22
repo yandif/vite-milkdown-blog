@@ -27,7 +27,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 /** 添加响应拦截器  **/
@@ -53,19 +53,21 @@ instance.interceptors.response.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 const create = (method) => {
   return (url: string, query?: unknown, config = {}): Promise<unknown> => {
     return new Promise((resolve, reject) => {
-      const configs = { method, url, ...config, };
+      const configs = { method, url, ...config };
       if (['GET', 'DELETE'].includes(method)) {
         configs.params = query;
       } else {
         configs.data = query;
       }
-      instance(configs).then((res) => resolve(res)).catch((e) => reject(e));
+      instance(configs)
+        .then((res) => resolve(res))
+        .catch((e) => reject(e));
     });
   };
 };
