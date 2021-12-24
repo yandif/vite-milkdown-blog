@@ -6,9 +6,9 @@ import { AdminStoreType } from '@/store/AdminStore';
 import { AppStoreType } from '@/store/AppStore';
 import { inject, observer } from 'mobx-react';
 import React, { useEffect, FC } from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes, RouteObject } from 'react-router-dom';
 
-const RootRoutes = () => {
+const RootRoutes: FC = () => {
   const routing = useRoutes([
     {
       path: '/',
@@ -26,15 +26,9 @@ const RootRoutes = () => {
 
 export default RootRoutes;
 
-const Auth: FC<{
-  AppStore: AppStoreType;
-  AdminStore: AdminStoreType;
-  element: React.ReactNode;
-  auth: boolean;
-  hideHeader: boolean;
-  hideSidebar: boolean;
-  hideFooter: boolean;
-}> = (props) => {
+
+
+const Auth: FC<Props> = (props) => {
   const {
     AppStore: {
       data: { isLoading },
@@ -49,7 +43,7 @@ const Auth: FC<{
     hideHeader,
     hideSidebar,
     hideFooter,
-  } = props;
+  } = props as unknown as MobxProps;
 
   useEffect(() => {
     setHidden({ hideHeader, hideSidebar, hideFooter });
@@ -63,15 +57,16 @@ const Auth: FC<{
     return <Navigate to="/login" />;
   }
 
-  return !isLoading && element;
+  return !isLoading && element || null;
 };
 
 const MobxAuth = inject('AdminStore', 'AppStore')(observer(Auth));
 
+
 /**
  *  转化route
  */
-const T = (routes) => {
+const T = (routes: Route[]): RouteObject[] => {
   return routes.map(
     ({
       path,
@@ -84,7 +79,7 @@ const T = (routes) => {
       hideSidebar = false,
       hideFooter = false,
     }) => {
-      const route = {
+      const route: RouteObject = {
         path,
         element: (
           <MobxAuth
@@ -95,6 +90,7 @@ const T = (routes) => {
             hideFooter={hideFooter}
           />
         ),
+        children,
         index,
         caseSensitive,
       };
@@ -105,3 +101,33 @@ const T = (routes) => {
     },
   );
 };
+
+
+type Props = {
+  element: React.ReactNode;
+  auth: boolean;
+  hideHeader: boolean;
+  hideSidebar: boolean;
+  hideFooter: boolean;
+}
+
+type MobxProps = {
+  AppStore: AppStoreType;
+  AdminStore: AdminStoreType;
+  element: JSX.Element;
+  auth: boolean;
+  hideHeader: boolean;
+  hideSidebar: boolean;
+  hideFooter: boolean;
+}
+export type Route = {
+  path: string;
+  element: JSX.Element;
+  children?: Route[];
+  caseSensitive?: boolean;
+  index?: boolean;
+  auth?: boolean;
+  hideHeader?: boolean;
+  hideSidebar?: boolean;
+  hideFooter?: boolean;
+}

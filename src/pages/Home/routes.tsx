@@ -1,8 +1,13 @@
-const routes = [
+import { Route } from '../RootRoutes';
+function A() {
+  return <div>123</div>;
+}
+
+const routes: Route[] = [
   {
     path: '',
     auth: true,
-    element: 100000,
+    element: <A />,
   },
   {
     path: 'login',
@@ -11,7 +16,7 @@ const routes = [
   },
   {
     path: '*',
-    element: 404,
+    element: <h1>登录</h1>,
   },
 ];
 

@@ -1,20 +1,21 @@
+import { Route } from '../RootRoutes';
 
-const routes = [
+const routes: Route[] = [
   {
     path: '',
-    element: 100000,
+    element: <div>100000</div>,
   },
   {
     path: 'login',
-    element: 'login',
+    element: <div>login</div>,
   },
   {
     path: ':id',
-    element: 20000,
+    element: <div>100000</div>,
   },
   {
     path: '*',
-    element: 4014,
+    element: <div>100000</div>,
   }
 ];
 

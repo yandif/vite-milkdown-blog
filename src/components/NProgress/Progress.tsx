@@ -5,7 +5,10 @@ import Bar from './Bar';
 import Container from './Container';
 import Spinner from './Spinner';
 
-const Progress: FC = ({ isAnimating, color = '#007aff' }) => {
+const Progress: FC<{
+  isAnimating: boolean;
+  color?: string;
+}> = ({ isAnimating, color = '#007aff' }) => {
   const { animationDuration, isFinished, progress } = useNProgress({
     isAnimating,
   });

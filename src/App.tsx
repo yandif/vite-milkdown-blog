@@ -1,8 +1,14 @@
 import { inject, observer } from 'mobx-react';
-import { useMount } from 'react-use';
 import { TOKEN } from '@/constant';
 import RootRoutes from '@/pages/RootRoutes';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { AppStoreType } from '@/store/AppStore';
+import { AdminStoreType } from '@/store/AdminStore';
+
+type Props = {
+  AppStore: AppStoreType;
+  AdminStore: AdminStoreType;
+}
 
 const App: FC = (props) => {
   const {
@@ -12,9 +18,9 @@ const App: FC = (props) => {
       setIsInit,
     },
     AdminStore: { setCurrentUser },
-  } = props;
+  } = (props as Props);
 
-  useMount(() => initApp());
+  useEffect(() => { initApp(); }, []);
 
   const initApp = async () => {
     setIsLoading(true);
@@ -30,7 +36,7 @@ const App: FC = (props) => {
       // 3.token存在,根据token获取用户信息。
       await new Promise((resolve) => {
         setTimeout(() => {
-          resolve();
+          resolve(null);
         }, 10);
       });
 
@@ -43,7 +49,7 @@ const App: FC = (props) => {
     }
   };
 
-  return isInit && <RootRoutes />;
+  return isInit && <RootRoutes /> || null;
 };
 
 export default inject('AdminStore', 'AppStore')(observer(App));

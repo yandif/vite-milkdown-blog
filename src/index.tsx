@@ -4,7 +4,7 @@ import MobxProvider from '@/store';
 import { ConfigProvider } from 'antd';
 import MessageProvider from '@/components/Message';
 import NProgressProvider from '@/components/NProgress';
-import { WinBoxProvider } from '@/components/WinBox';
+// import { WinBoxProvider } from '@/components/WinBox';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -17,11 +17,11 @@ ReactDOM.render(
       <NProgressProvider>
         <ConfigProvider locale={zhCN}>
           <MessageProvider>
-            <WinBoxProvider>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </WinBoxProvider>
+            {/* <WinBoxProvider> */}
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+            {/* </WinBoxProvider> */}
           </MessageProvider>
         </ConfigProvider>
       </NProgressProvider>

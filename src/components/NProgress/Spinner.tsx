@@ -1,6 +1,8 @@
 import { FC } from 'react';
 
-const Spinner: FC = ({ color }) => (
+const Spinner: FC<{
+  color: string;
+}> = ({ color }) => (
   <div
     style={{
       display: 'block',
