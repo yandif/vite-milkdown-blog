@@ -2,8 +2,10 @@ import AdminLayout from '@/layouts/Admin';
 import HomeLayout from '@/layouts/Home';
 import AdminRoutes from '@/pages/Admin/routes';
 import HomeRoutes from '@/pages/Home/routes';
+import { AdminStoreType } from '@/store/AdminStore';
+import { AppStoreType } from '@/store/AppStore';
 import { inject, observer } from 'mobx-react';
-import { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { Navigate, useRoutes } from 'react-router-dom';
 
 const RootRoutes = () => {
@@ -24,7 +26,15 @@ const RootRoutes = () => {
 
 export default RootRoutes;
 
-const Auth = (props) => {
+const Auth: FC<{
+  AppStore: AppStoreType;
+  AdminStore: AdminStoreType;
+  element: React.ReactNode;
+  auth: boolean;
+  hideHeader: boolean;
+  hideSidebar: boolean;
+  hideFooter: boolean;
+}> = (props) => {
   const {
     AppStore: {
       data: { isLoading },

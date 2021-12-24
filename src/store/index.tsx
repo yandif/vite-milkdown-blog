@@ -1,14 +1,9 @@
 import { Provider } from 'mobx-react';
-import React, { FC } from 'react';
-import AppStore, { AppStoreType } from './AppStore';
-import AdminStore, { AdminStoreType } from './AdminStore';
+import { FC } from 'react';
+import AdminStore from './AdminStore';
+import AppStore from './AppStore';
 
-type Store = {
-  AdminStore: AdminStoreType;
-  AppStore: AppStoreType;
-};
-
-export const stores: Store = {
+export const stores = {
   AppStore,
   AdminStore,
 };
@@ -19,8 +14,9 @@ const MobxProvider: FC = ({ children }) => {
 
 export default MobxProvider;
 
+
 // 方便调试
-window.__APP_STATE__ = stores;
-declare global {
-  let __APP_STATE__: Store;
+interface MyWindow extends Window {
+  __APP_STATE__: unknown;
 }
+(window as unknown as MyWindow).__APP_STATE__ = stores;

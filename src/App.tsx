@@ -2,8 +2,9 @@ import { inject, observer } from 'mobx-react';
 import { useMount } from 'react-use';
 import { TOKEN } from '@/constant';
 import RootRoutes from '@/pages/RootRoutes';
+import { FC } from 'react';
 
-const App = (props) => {
+const App: FC = (props) => {
   const {
     AppStore: {
       data: { isInit },

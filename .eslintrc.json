@@ -20,13 +20,13 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "indent": "off", // 缩进
+    "indent": "off",
     "@typescript-eslint/indent": ["error", 2],
     "linebreak-style": "off",
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "react/react-in-jsx-scope": "off", // react 17 不需要引入React了
-    "react/prop-types": "off", // react参数校验
-    "@typescript-eslint/no-empty-function": "off"
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "eol-last": ["error", "always"]
   }
 }

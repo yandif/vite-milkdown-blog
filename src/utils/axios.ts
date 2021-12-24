@@ -37,7 +37,7 @@ instance.interceptors.response.use(
 
     if (code === 10043) {
       Message.error(message);
-      stores.AdminStore.setUser(null);
+      stores.AdminStore.setCurrentUser(null);
     }
 
     if (code === 1) {
@@ -56,10 +56,10 @@ instance.interceptors.response.use(
   },
 );
 
-const create = (method) => {
+const create = (method: string) => {
   return (url: string, query?: unknown, config = {}): Promise<unknown> => {
     return new Promise((resolve, reject) => {
-      const configs = { method, url, ...config };
+      const configs: { [key: string]: unknown } = { method, url, ...config };
       if (['GET', 'DELETE'].includes(method)) {
         configs.params = query;
       } else {
