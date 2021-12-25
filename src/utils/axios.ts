@@ -1,7 +1,8 @@
+import axios from 'axios';
+
 import { message as Message } from '@/components/Message';
 import { TOKEN } from '@/constant';
 import { stores } from '@/store/index';
-import axios from 'axios';
 
 const instance = axios.create({
   baseURL: '/api/v1',
