@@ -1,86 +1,105 @@
-// import React, { createContext, useContext, useRef, useState } from 'react';
-// import ReactDOM from 'react-dom';
-// import WinBox from 'winbox/src/js/winbox';
-// import 'winbox/src/css/winbox.less';
-// import './themes/modern.less';
+import 'winbox/src/css/winbox.less';
+import './themes/modern.less';
 
-// const Store = createContext();
+import React, { createContext, FC, useContext, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+import WinBox from 'winbox/src/js/winbox';
 
-// export default Store;
+const Store = createContext<{
+  open: (config?: WinBoxConfig) => any
+}>({} as any);
 
-// export const useWinBox = () => {
-//   const { open } = useContext(Store);
-//   return { open };
-// };
+export const useWinBox = () => {
+  const { open } = useContext(Store);
+  return { open };
+};
 
-// /**
-//  *  弹出框组件
-//  */
-// export const WinBoxProvider = (props) => {
-//   const { children } = props;
-//   const ref = useRef('winbox');
-//   const [box, setBox] = useState([]);
+/**
+ *  弹出框组件
+ */
+export const WinBoxProvider: FC = ({ children }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState<any[]>([]);
 
-//   const open = ({
-//     title = '弹窗',
-//     border = '0',
-//     background = '#28292d',
-//     className,
-//     x = 'center',
-//     y = 'center',
-//     width,
-//     height,
-//     top,
-//     right,
-//     bottom,
-//     left,
-//     modal = false,
-//     children,
-//     modern = true,
-//     onClose = () => { },
-//   }) => {
-//     const wb = new WinBox(title, {
-//       root: ref.current,
-//       border,
-//       background,
-//       x,
-//       y,
-//       width,
-//       height,
-//       top,
-//       right,
-//       bottom,
-//       left,
-//       modal,
-//       class: `${modern ? 'modern' : className ? `${className}` : ''}`,
-//       onclose: () => {
-//         ReactDOM.unmountComponentAtNode(
-//           document.querySelector(`#${wb.id} .wb-body`),
-//         );
-//         box.splice(
-//           box.findIndex(({ id }) => id === wb.id),
-//           1,
-//         );
-//         setBox([...box]);
-//         onClose();
-//       },
-//     });
-//     ReactDOM.render(
-//       React.cloneElement(children, { wb }),
-//       document.querySelector(`#${wb.id} .wb-body`),
-//     );
-//     setBox([...box, wb]);
-//     return wb;
-//   };
+  const open = ({
+    title = '弹窗',
+    border = '0',
+    background = '#28292d',
+    className,
+    x = 'center',
+    y = 'center',
+    width,
+    height,
+    top,
+    right,
+    bottom,
+    left,
+    modal = false,
+    children = <></>,
+    modern = true,
+    onClose = () => { },
+  }: WinBoxConfig = {}) => {
+    const wb = new WinBox({
+      title,
+      root: ref.current as Node,
+      border,
+      background,
+      x,
+      y,
+      width,
+      height,
+      top,
+      right,
+      bottom,
+      left,
+      modal,
+      class: `${modern ? 'modern' : className ? `${className}` : ''}`,
+      onclose: () => {
+        const component = document.querySelector(`#${wb.id} .wb-body`);
+        component && ReactDOM.unmountComponentAtNode(component);
 
-//   const value = { ...props, open };
+        box.splice(
+          box.findIndex(({ id }) => id === wb.id),
+          1,
+        );
+        setBox([...box]);
+        onClose();
+        return false;
+      },
+    });
+    ReactDOM.render(
+      React.cloneElement(children, { wb }),
+      document.querySelector(`#${wb.id} .wb-body`),
+    );
+    setBox([...box, wb]);
+    return wb;
+  };
 
-//   return (
-//     <Store.Provider value={value}>
-//       <div ref={ref}></div>
-//       {children}
-//     </Store.Provider>
-//   );
-// };
+  const value = { open };
 
-export default 1;
+  return (
+    <Store.Provider value={value}>
+      <div ref={ref}></div>
+      {children}
+    </Store.Provider>
+  );
+};
+
+type WinBoxConfig = {
+  title?: string;
+  border?: string;
+  background?: string;
+  className?: string;
+  x?: string;
+  y?: string;
+  width?: string | number;
+  height?: string | number;
+  top?: string | number;
+  right?: string | number;
+  bottom?: string | number;
+  left?: string | number;
+  modal?: boolean;
+  children?: JSX.Element;
+  modern?: boolean;
+  onClose?: () => unknown;
+}

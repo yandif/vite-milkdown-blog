@@ -31,6 +31,7 @@ module.exports = {
     semi: ['error', 'always'], // 语句后的分号
     'react/react-in-jsx-scope': 'off', // react 17 不需要导入React 了
     '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'eol-last': ['error', 'always'],
     'no-multiple-empty-lines': [
       'error',

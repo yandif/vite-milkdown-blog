@@ -5,7 +5,6 @@ specifiers:
   '@types/node': ^17.0.4
   '@types/react': ^17.0.33
   '@types/react-dom': ^17.0.10
-  '@types/winbox': ^0.2.1
   '@typescript-eslint/eslint-plugin': ^5.7.0
   '@typescript-eslint/parser': ^5.7.0
   '@vitejs/plugin-legacy': ^1.6.4
@@ -51,7 +50,6 @@ devDependencies:
   '@types/node': 17.0.4
   '@types/react': 17.0.38
   '@types/react-dom': 17.0.11
-  '@types/winbox': 0.2.1
   '@typescript-eslint/eslint-plugin': 5.8.0_836011a006f4f5d67178564baf2b6d34
   '@typescript-eslint/parser': 5.8.0_eslint@8.5.0+typescript@4.5.4
   '@vitejs/plugin-legacy': 1.6.4_vite@2.7.6
@@ -599,10 +597,6 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
-    dev: true
-
-  /@types/winbox/0.2.1:
-    resolution: {integrity: sha512-fN/UQjitix7v3yDmpvzKSnDyKIiOhU5LdAj5Wcf/eRpGapoLwBELAwvVZY/2OBw23PyPKwGZ07oZxBHyIO/e3A==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/5.8.0_836011a006f4f5d67178564baf2b6d34:
