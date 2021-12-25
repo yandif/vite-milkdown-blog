@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
-import { TOKEN } from '@/constant';
+import { TOKEN } from '@/constants';
 import RootRoutes from '@/pages/RootRoutes';
 import AdminStore from '@/store/AdminStore';
 import AppStore from '@/store/AppStore';

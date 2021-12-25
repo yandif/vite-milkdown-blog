@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 import { message as Message } from '@/components/Message';
-import { TOKEN } from '@/constant';
+import { TOKEN } from '@/constants';
+import { ResponeData } from '@/services';
 import { stores } from '@/store/index';
 
 const instance = axios.create({
@@ -58,16 +59,16 @@ instance.interceptors.response.use(
 );
 
 const create = (method: string) => {
-  return (url: string, query?: unknown, config = {}): Promise<unknown> => {
+  return (url: string, query?: unknown, config = {}): Promise<ResponeData> => {
     return new Promise((resolve, reject) => {
-      const configs: { [key: string]: unknown } = { method, url, ...config };
+      const configs: { [key: string]: any } = { method, url, ...config };
       if (['GET', 'DELETE'].includes(method)) {
         configs.params = query;
       } else {
         configs.data = query;
       }
       instance(configs)
-        .then((res) => resolve(res))
+        .then((res) => resolve(res as any as ResponeData))
         .catch((e) => reject(e));
     });
   };

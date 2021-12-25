@@ -97,7 +97,7 @@ const Auth: FC<{
     return <Navigate to="/login" />;
   }
 
-  return !isLoading && <React.Fragment>{element}</React.Fragment> || null;
+  return <React.Fragment>{element}</React.Fragment>;
 });
 
 export type Route = {

@@ -9,6 +9,7 @@
     "unpackage": "rimraf node_modules "
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@tanem/react-nprogress": "^3.0.82",
     "antd": "^4.17.3",
     "axios": "^0.24.0",

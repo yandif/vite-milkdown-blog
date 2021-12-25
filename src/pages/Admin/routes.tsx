@@ -1,4 +1,8 @@
+import asyncRouter from '@/components/asyncRouter';
+
 import { Route } from '../RootRoutes';
+
+const Login = asyncRouter(() => import('./Login'));
 
 const routes: Route[] = [
   {
@@ -7,7 +11,7 @@ const routes: Route[] = [
   },
   {
     path: 'login',
-    element: <div>login</div>,
+    element: <Login />,
   },
   {
     path: ':id',
