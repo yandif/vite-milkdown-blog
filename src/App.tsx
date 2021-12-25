@@ -1,24 +1,16 @@
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
+import { FC, useEffect, useState } from 'react';
+
 import { TOKEN } from '@/constant';
 import RootRoutes from '@/pages/RootRoutes';
-import { FC, useEffect } from 'react';
-import { AppStoreType } from '@/store/AppStore';
-import { AdminStoreType } from '@/store/AdminStore';
+import AdminStore from '@/store/AdminStore';
+import AppStore from '@/store/AppStore';
 
-type Props = {
-  AppStore: AppStoreType;
-  AdminStore: AdminStoreType;
-}
-
-const App: FC = (props) => {
-  const {
-    AppStore: {
-      data: { isInit },
-      setIsLoading,
-      setIsInit,
-    },
-    AdminStore: { setCurrentUser },
-  } = (props as Props);
+const App: FC = () => {
+  const [_AppStore] = useState(() => AppStore);
+  const [_AdminStore] = useState(() => AdminStore);
+  const { data: { isInit }, setIsLoading, setIsInit, } = _AppStore;
+  const { setCurrentUser } = _AdminStore;
 
   useEffect(() => { initApp(); }, []);
 
@@ -40,7 +32,7 @@ const App: FC = (props) => {
         }, 10);
       });
 
-      // setCurrentUser({ name: 'yandif', phone: 13080080000 });
+      setCurrentUser({ name: 'yandif', phone: 13080080000 });
     } catch (e) {
       //
     } finally {
@@ -52,4 +44,4 @@ const App: FC = (props) => {
   return isInit && <RootRoutes /> || null;
 };
 
-export default inject('AdminStore', 'AppStore')(observer(App));
+export default observer(App);

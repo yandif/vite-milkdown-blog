@@ -7,6 +7,7 @@ const routes: Route[] = [
   {
     path: '',
     auth: true,
+    index: true,
     element: <A />,
   },
   {

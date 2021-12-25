@@ -1,21 +1,18 @@
-import { AppStoreType } from '@/store/AppStore';
-import { inject, observer } from 'mobx-react';
-import { FC } from 'react';
 import './index.less';
+
+import { observer } from 'mobx-react-lite';
+import { FC, useState } from 'react';
+
+import AppStore from '@/store/AppStore';
+
 import Progress from './Progress';
 
-type Props = {
-  AppStore: AppStoreType;
-  children: JSX.Element;
-}
+const NProgressProvider: FC = ({ children }) => {
 
-const NProgressProvider: FC = (props) => {
-  const {
-    AppStore: {
-      data: { isLoading, loadingKey },
-    },
-    children,
-  } = props as Props;
+  const [_AppStore] = useState(() => AppStore);
+
+  const { data: { isLoading, loadingKey }, } = _AppStore;
+
   return (
     <>
       <Progress isAnimating={isLoading} key={loadingKey} color="#29d" />
@@ -24,4 +21,4 @@ const NProgressProvider: FC = (props) => {
   );
 };
 
-export default inject('AppStore')(observer(NProgressProvider));
+export default observer(NProgressProvider);

@@ -1,5 +1,3 @@
-import { Provider } from 'mobx-react';
-import { FC } from 'react';
 import AdminStore from './AdminStore';
 import AppStore from './AppStore';
 
@@ -8,12 +6,7 @@ export const stores = {
   AdminStore,
 };
 
-const MobxProvider: FC = ({ children }) => {
-  return <Provider {...stores}>{children}</Provider>;
-};
-
-export default MobxProvider;
-
+export default stores;
 
 // 方便调试
 interface MyWindow extends Window {

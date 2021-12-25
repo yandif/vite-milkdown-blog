@@ -32,5 +32,17 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "prettier.requireConfig": true,
+  "files.associations": {
+    "*.tsx": "typescriptreact"
+  },
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

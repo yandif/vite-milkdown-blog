@@ -1,5 +1,4 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function HomeLayout() {
   return (

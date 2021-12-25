@@ -1,72 +1,36 @@
+import { observer } from 'mobx-react-lite';
+import React, { FC, useEffect, useState } from 'react';
+import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
+
 import AdminLayout from '@/layouts/Admin';
 import HomeLayout from '@/layouts/Home';
 import AdminRoutes from '@/pages/Admin/routes';
 import HomeRoutes from '@/pages/Home/routes';
-import { AdminStoreType } from '@/store/AdminStore';
-import { AppStoreType } from '@/store/AppStore';
-import { inject, observer } from 'mobx-react';
-import React, { useEffect, FC } from 'react';
-import { Navigate, useRoutes, RouteObject } from 'react-router-dom';
+import AdminStore from '@/store/AdminStore';
+import AppStore from '@/store/AppStore';
 
-const RootRoutes: FC = () => {
+const RootRoutes: FC = observer(() => {
   const routing = useRoutes([
     {
       path: '/',
       element: <HomeLayout />,
-      children: T(HomeRoutes),
+      children: Tranform(HomeRoutes),
     },
     {
       path: '/admin',
       element: <AdminLayout />,
-      children: T(AdminRoutes),
+      children: Tranform(AdminRoutes),
     },
   ]);
   return routing;
-};
+});
 
 export default RootRoutes;
-
-
-
-const Auth: FC<Props> = (props) => {
-  const {
-    AppStore: {
-      data: { isLoading },
-      setHidden,
-      setIsLoading,
-    },
-    AdminStore: {
-      data: { user },
-    },
-    element,
-    auth,
-    hideHeader,
-    hideSidebar,
-    hideFooter,
-  } = props as unknown as MobxProps;
-
-  useEffect(() => {
-    setHidden({ hideHeader, hideSidebar, hideFooter });
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 100);
-  }, []);
-
-  if (auth && !user) {
-    return <Navigate to="/login" />;
-  }
-
-  return !isLoading && element || null;
-};
-
-const MobxAuth = inject('AdminStore', 'AppStore')(observer(Auth));
-
 
 /**
  *  转化route
  */
-const T = (routes: Route[]): RouteObject[] => {
+const Tranform = (routes: Route[]): RouteObject[] => {
   return routes.map(
     ({
       path,
@@ -82,7 +46,7 @@ const T = (routes: Route[]): RouteObject[] => {
       const route: RouteObject = {
         path,
         element: (
-          <MobxAuth
+          <Auth
             element={element}
             auth={auth}
             hideHeader={hideHeader}
@@ -95,31 +59,47 @@ const T = (routes: Route[]): RouteObject[] => {
         caseSensitive,
       };
       if (children) {
-        route.children = T(children);
+        route.children = Tranform(children);
       }
       return route;
     },
   );
 };
 
-
-type Props = {
+const Auth: FC<{
   element: React.ReactNode;
   auth: boolean;
   hideHeader: boolean;
   hideSidebar: boolean;
   hideFooter: boolean;
-}
+}> = observer((props) => {
+  const {
+    element,
+    auth,
+    hideHeader,
+    hideSidebar,
+    hideFooter,
+  } = props;
+  const [_AppStore] = useState(() => AppStore);
+  const [_AdminStore] = useState(() => AdminStore);
+  const { data: { isLoading }, setIsLoading, setHidden, } = _AppStore;
+  const { data: { user } } = _AdminStore;
 
-type MobxProps = {
-  AppStore: AppStoreType;
-  AdminStore: AdminStoreType;
-  element: JSX.Element;
-  auth: boolean;
-  hideHeader: boolean;
-  hideSidebar: boolean;
-  hideFooter: boolean;
-}
+  useEffect(() => {
+    setHidden({ hideHeader, hideSidebar, hideFooter });
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+  }, []);
+
+  if (auth && !user) {
+    return <Navigate to="/login" />;
+  }
+
+  return !isLoading && <React.Fragment>{element}</React.Fragment> || null;
+});
+
 export type Route = {
   path: string;
   element: JSX.Element;

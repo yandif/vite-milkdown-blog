@@ -3,18 +3,19 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "rimraf dist & tsc && vite build",
+    "preview": "vite preview",
+    "pnpm:i": "npm i pnpm -g & pnpm i",
+    "unpackage": "rimraf node_modules "
   },
   "dependencies": {
     "@tanem/react-nprogress": "^3.0.82",
-    "@types/winbox": "^0.2.1",
     "antd": "^4.17.3",
     "axios": "^0.24.0",
     "csstype": "2.6.2",
     "less": "^4.1.2",
     "mobx": "^6.3.8",
-    "mobx-react": "^7.2.1",
+    "mobx-react-lite": "^3.2.2",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -23,15 +24,19 @@
     "winbox": "^0.2.1"
   },
   "devDependencies": {
+    "@types/node": "^17.0.4",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
+    "@types/winbox": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "@vitejs/plugin-legacy": "^1.6.4",
     "@vitejs/plugin-react": "^1.0.7",
     "eslint": "^8.5.0",
     "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "typescript": "^4.5.4",
     "vite": "^2.7.0",
     "vite-plugin-mkcert": "^1.5.2",
