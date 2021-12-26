@@ -13,18 +13,16 @@ import { WinBoxProvider } from '@/components/WinBox';
 import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <NProgressProvider>
-      <ConfigProvider locale={zhCN}>
-        <WinBoxProvider>
-          <MessageProvider>
-            <Router>
-              <App />
-            </Router>
-          </MessageProvider>
-        </WinBoxProvider>
-      </ConfigProvider>
-    </NProgressProvider>
-  </React.StrictMode >,
+  <NProgressProvider>
+    <ConfigProvider locale={zhCN}>
+      <WinBoxProvider>
+        <MessageProvider>
+          <Router>
+            <App />
+          </Router>
+        </MessageProvider>
+      </WinBoxProvider>
+    </ConfigProvider>
+  </NProgressProvider>,
   document.getElementById('root'),
 );

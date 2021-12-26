@@ -7,19 +7,23 @@ const Login = asyncRouter(() => import('./Login'));
 const routes: Route[] = [
   {
     path: '',
-    element: <div>100000</div>,
+    element: <h1>首页</h1>,
+    auth: true,
+  },
+  {
+    path: 'home',
+    element: <h1>首页</h1>,
+    auth: true,
   },
   {
     path: 'login',
     element: <Login />,
-  },
-  {
-    path: ':id',
-    element: <div>100000</div>,
+    hideHeader: true,
+    hideSidebar: true,
   },
   {
     path: '*',
-    element: <div>100000</div>,
+    element: <h1>404</h1>,
   }
 ];
 

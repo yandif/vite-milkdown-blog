@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { FC, useEffect, useState } from 'react';
-import { Navigate, RouteObject, useRoutes } from 'react-router-dom';
+import { Navigate, RouteObject, useLocation, useRoutes } from 'react-router-dom';
 
 import AdminLayout from '@/layouts/Admin';
 import HomeLayout from '@/layouts/Home';
@@ -41,7 +41,7 @@ const Tranform = (routes: Route[]): RouteObject[] => {
       auth = false,
       hideHeader = false,
       hideSidebar = false,
-      hideFooter = false,
+      hideFooter = true,
     }) => {
       const route: RouteObject = {
         path,
@@ -80,21 +80,24 @@ const Auth: FC<{
     hideSidebar,
     hideFooter,
   } = props;
+  const location = useLocation();
   const [_AppStore] = useState(() => AppStore);
   const [_AdminStore] = useState(() => AdminStore);
-  const { data: { isLoading }, setIsLoading, setHidden, } = _AppStore;
+  const { setIsLoading, setHidden, } = _AppStore;
   const { data: { user } } = _AdminStore;
 
   useEffect(() => {
     setHidden({ hideHeader, hideSidebar, hideFooter });
+
+    console.log('加载动画');
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 100);
-  }, []);
+    }, 10);
+  }, [location.pathname]);
 
   if (auth && !user) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/admin/login" />;
   }
 
   return <React.Fragment>{element}</React.Fragment>;

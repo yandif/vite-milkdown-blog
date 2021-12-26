@@ -10,4 +10,3 @@ export enum FORM {
   VIEW = 'view',
   EDIT = 'edit',
 }
-console.log(FORM);

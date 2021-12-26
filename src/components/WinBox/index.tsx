@@ -1,8 +1,9 @@
 import 'winbox/src/css/winbox.less';
 import './themes/modern.less';
 
-import React, { createContext, FC, useContext, useRef, useState } from 'react';
+import React, { createContext, FC, useContext, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useLocation } from 'react-router-dom';
 import WinBox from 'winbox/src/js/winbox';
 
 const Store = createContext<{
@@ -39,6 +40,12 @@ export const WinBoxProvider: FC = ({ children }) => {
     modern = true,
     onClose = () => { },
   }: WinBoxConfig = {}) => {
+
+    const location = useLocation();
+    useEffect(() => {
+      box.forEach(v => v.close());
+    }, [location.pathname]);
+
     const wb = new WinBox({
       title,
       root: ref.current as Node,

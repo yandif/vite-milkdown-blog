@@ -3,6 +3,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { useEffect, useState } from 'react';
 
 import LogoImg from '@/assets/img/logo.png';
+import { message as Message } from '@/components/Message';
 import { LOGININFO, TOKEN } from '@/constants';
 import { Account } from '@/services';
 import { tool } from '@/utils/tool';
@@ -14,24 +15,45 @@ const LoginForm = ({ prefix, setCurrentUser }: any) => {
 
   const [form] = Form.useForm();
 
+  // 1. 加载动画，检查是否有记住的密码
   useEffect(() => {
     setShow(true);
-    const loginInfo = localStorage.getItem(LOGININFO);
-    if (loginInfo) {
-      const { username, password } = JSON.parse(loginInfo);
-
-      setRememberPassword(true);
-
-      form.setFieldsValue({
-        username: tool.uncompile(username),
-        password: tool.uncompile(password),
-      });
-    }
-    if (!loginInfo) {
-      document.getElementById('username')?.focus();
-    }
+    PassWord.check();
   }, [form]);
 
+  const PassWord = {
+    check: () => {
+      const loginInfo = localStorage.getItem(LOGININFO);
+      if (loginInfo) {
+        const { username, password } = JSON.parse(loginInfo);
+
+        setRememberPassword(true);
+
+        form.setFieldsValue({
+          username: tool.uncompile(username),
+          password: tool.uncompile(password),
+        });
+      }
+      if (!loginInfo) {
+        document.getElementById('username')?.focus();
+      }
+    },
+    remember: (username: string, password: string) => {
+      if (rememberPassword) {
+        localStorage.setItem(
+          LOGININFO,
+          JSON.stringify({
+            username: tool.compile(username),
+            password: tool.compile(password),
+          }),
+        );
+      } else {
+        localStorage.removeItem(LOGININFO);
+      }
+    }
+  };
+
+  // 2. 处理登录
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -44,34 +66,20 @@ const LoginForm = ({ prefix, setCurrentUser }: any) => {
         return account;
       }
 
-      if (rememberPassword) {
-        localStorage.setItem(
-          LOGININFO,
-          JSON.stringify({
-            username: tool.compile(username),
-            password: tool.compile(password),
-          }),
-        );
-      } else {
-        localStorage.removeItem(LOGININFO);
-      }
+      PassWord.remember(username, password);
+
+      Message.success('登录成功');
 
       localStorage.setItem(TOKEN, window.atob(account.data.token));
 
-      const creatInt = setInterval(() => {
-        setCurrentUser(account.data);
-        clearInterval(creatInt);
-      }, 1);
+      setCurrentUser(account.data);
+
     } catch (e) {
       //
       console.log(e);
     } finally {
       setLoading(false);
     }
-  };
-
-  const onRemember = (e: any) => {
-    setRememberPassword(e.target.checked);
   };
 
   return (
@@ -119,7 +127,7 @@ const LoginForm = ({ prefix, setCurrentUser }: any) => {
           <Checkbox
             className="remember"
             checked={rememberPassword}
-            onChange={onRemember}
+            onChange={(e) => setRememberPassword(e.target.checked)}
           >
             记住密码
           </Checkbox>

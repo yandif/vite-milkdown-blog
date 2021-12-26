@@ -2,7 +2,7 @@ import { action, intercept, observable } from 'mobx';
 
 export type AdminStoreType = {
   data: {
-    user: null | object;
+    user: null | { [key: string]: any };
     roles: [];
     menus: [];
   };

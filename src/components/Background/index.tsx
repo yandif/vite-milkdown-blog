@@ -14,8 +14,10 @@ export default function CanvasBack({ row = 12, col = 8 }: { row?: number; col?: 
     },
   );
 
-  const [animateTimer, setAnimateTimer] = useState(0);
+  const [play, setPlay] = useState(false);
   useEffect(() => {
+    setPlay(true);
+
     if (myCanvas.current) {
       data.current.ctx = myCanvas.current.getContext('2d');
       if (data.current && data.current.ctx) {
@@ -30,7 +32,7 @@ export default function CanvasBack({ row = 12, col = 8 }: { row?: number; col?: 
     }
 
     return () => {
-      animateTimer && window.cancelAnimationFrame(animateTimer);
+      setPlay(false);
     };
   }, []);
 
@@ -167,7 +169,10 @@ export default function CanvasBack({ row = 12, col = 8 }: { row?: number; col?: 
     );
 
     drow(data.current.dots, row, col, data.current.ctx, width, height);
-    setAnimateTimer(requestAnimationFrame(animate));
+
+    if (play) {
+      requestAnimationFrame(animate);
+    }
   };
 
   return (

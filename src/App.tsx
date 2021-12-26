@@ -6,6 +6,8 @@ import RootRoutes from '@/pages/RootRoutes';
 import AdminStore from '@/store/AdminStore';
 import AppStore from '@/store/AppStore';
 
+import { Account } from './services';
+
 const App: FC = () => {
   const [_AppStore] = useState(() => AppStore);
   const [_AdminStore] = useState(() => AdminStore);
@@ -26,15 +28,12 @@ const App: FC = () => {
         throw new Error('用户未登录');
       }
       // 3.token存在,根据token获取用户信息。
-      await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(null);
-        }, 10);
-      });
-
-      setCurrentUser({ name: 'yandif', phone: 13080080000 });
+      const res = await Account.getUserInfo();
+      if (res.code === 0) {
+        setCurrentUser(res.data);
+      }
     } catch (e) {
-      //
+      console.log(e);
     } finally {
       setIsInit(true);
       setIsLoading(false);

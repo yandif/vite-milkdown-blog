@@ -1,24 +1,14 @@
 import { Route } from '../RootRoutes';
+
 function A() {
-  return <div>123</div>;
+  return <h1>首页</h1>;
 }
 
 const routes: Route[] = [
   {
     path: '',
-    auth: true,
-    index: true,
     element: <A />,
-  },
-  {
-    path: 'login',
-    element: <h1>登录</h1>,
-    hideHeader: true,
-  },
-  {
-    path: '*',
-    element: <h1>登录</h1>,
-  },
+  }
 ];
 
 export default routes;
