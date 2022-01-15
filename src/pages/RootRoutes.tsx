@@ -6,6 +6,7 @@ import AdminLayout from '@/layouts/Admin';
 import HomeLayout from '@/layouts/Home';
 import AdminRoutes from '@/pages/Admin/routes';
 import HomeRoutes from '@/pages/Home/routes';
+import P5Routes from '@/pages/P5/routes';
 import AdminStore from '@/store/AdminStore';
 import AppStore from '@/store/AppStore';
 
@@ -20,6 +21,10 @@ const RootRoutes: FC = observer(() => {
       path: '/admin',
       element: <AdminLayout />,
       children: Tranform(AdminRoutes),
+    },
+    {
+      path: '/p5',
+      children: Tranform(P5Routes),
     },
   ]);
   return routing;

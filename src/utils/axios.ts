@@ -38,7 +38,6 @@ instance.interceptors.response.use(
     const { code, message, result, status } = response?.data || {};
 
     if (code === 10043) {
-      Message.error(message);
       stores.AdminStore.setCurrentUser(null);
     }
 

@@ -33,6 +33,18 @@ export const tool: {
    * 校验是否是邮箱
    */
   checkEmail: (pnone: string) => boolean;
+
+  /**
+   * 获取随机数
+   * @example
+   * randomInt(10) //0-10
+   * randomInt(-10,10) //-10-10
+   */
+  randomInt: (
+    min: number,
+    max?: number,
+    cb?: (err: Error | null, n?: number) => void,
+  ) => number;
 } = {
   getType(value: any) {
     return new DataTypes(value);
@@ -75,5 +87,50 @@ export const tool: {
     const rex =
       /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/;
     return rex.test(email);
+  },
+
+  randomInt(min, max, cb) {
+    if (typeof min === 'number' && typeof max === 'number') {
+      [min, max] = [max, min];
+    }
+
+    if (max === undefined) {
+      max = 0;
+    } else if (typeof max === 'function') {
+      cb = max;
+      max = 0;
+    }
+
+    if (
+      !Number.isSafeInteger(max) ||
+      (typeof min === 'number' && !Number.isSafeInteger(min))
+    ) {
+      throw new Error('max or min is not a Safe Number');
+    }
+
+    if (min - max > Math.pow(2, 48)) {
+      throw new RangeError('max - min should be less than 2^48!');
+    }
+
+    if (max >= min) {
+      throw new Error('Min is bigger than Max!');
+    }
+
+    const randomBuffer = new Uint32Array(1);
+
+    crypto.getRandomValues(randomBuffer);
+
+    const randomNumber = randomBuffer[0] / (0xffffffff + 1);
+
+    max = Math.ceil(max);
+    min = Math.floor(min);
+
+    const result = Math.floor(randomNumber * (min - max + 1)) + max;
+
+    if (cb) {
+      cb(null, result);
+    }
+
+    return result;
   },
 };

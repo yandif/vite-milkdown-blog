@@ -4,7 +4,13 @@ const useFullScreen = () => {
   const [fullScreen, setFullScreen] = useState(false);
 
   const requestFullScreen = useCallback(() => {
-    const element: FullScreenElement = document.documentElement;
+    const element: {
+      requestFullscreen?: any;
+      webkitRequestFullscreen?: any;
+      mozRequestFullScreen?: any;
+      msRequestFullscreen?: any;
+    } = document.documentElement;
+
     const requestMethod =
       element.requestFullscreen ||
       element.webkitRequestFullscreen ||
@@ -17,7 +23,13 @@ const useFullScreen = () => {
   }, []);
 
   const exitFullScreen = useCallback(() => {
-    const element: ExitFullScreenElement = document;
+    const element: {
+      exitFullscreen?: any;
+      mozCancelFullScreen?: any;
+      webkitExitFullscreen?: any;
+      msExitFullscreen?: any;
+    } = document;
+
     const exitMethod =
       element.exitFullscreen ||
       element.mozCancelFullScreen ||
@@ -33,17 +45,3 @@ const useFullScreen = () => {
 };
 
 export default useFullScreen;
-
-type FullScreenElement = {
-  requestFullscreen?: any;
-  webkitRequestFullscreen?: any;
-  mozRequestFullScreen?: any;
-  msRequestFullscreen?: any;
-};
-
-type ExitFullScreenElement = {
-  exitFullscreen?: any;
-  mozCancelFullScreen?: any;
-  webkitExitFullscreen?: any;
-  msExitFullscreen?: any;
-};
