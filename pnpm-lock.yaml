@@ -21,6 +21,7 @@ specifiers:
   less: ^4.1.2
   lodash: ^4.17.21
   matter-js: ^0.18.0
+  matter-wrap: ^0.2.0
   mobx: ^6.3.8
   mobx-react-lite: ^3.2.2
   prettier: ^2.5.1
@@ -47,6 +48,7 @@ dependencies:
   less: 4.1.2
   lodash: 4.17.21
   matter-js: 0.18.0
+  matter-wrap: 0.2.0
   mobx: 6.3.10
   mobx-react-lite: 3.2.2_65e9936076dc1bc58dcf4e626b32cb4a
   prism-react-renderer: 1.2.1_react@17.0.2
@@ -2060,6 +2062,10 @@ packages:
 
   /matter-js/0.18.0:
     resolution: {integrity: sha512-/ZVem4WygUnbmo/iE4oHZpZS97btfBtYy5Iwn1396vUZU7YhgVEN8J4UWwfZwY1ZqoTYlPgjvSw9WXauuXL0mg==}
+    dev: false
+
+  /matter-wrap/0.2.0:
+    resolution: {integrity: sha512-Gp3tETlN6uZftc1Jnv1sogQd8uB2Xh4c5bQ18qKR6KOMfUlsS8vztrC1vDrZS8eg4MuwE1AgZEcwxI41BSW6oQ==}
     dev: false
 
   /mdn-data/2.0.14:

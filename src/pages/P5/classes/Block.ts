@@ -95,7 +95,7 @@ export default class Block extends BlockCore {
     }
   }
 
-  constrainTo(block: Block, options: IConstraintDefinition) {
+  constrainTo(options: IConstraintDefinition, block?: Block) {
     options.bodyA = this.body;
     if (block) {
       // 约束到另一个块
