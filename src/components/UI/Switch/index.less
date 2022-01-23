@@ -1,0 +1,64 @@
+.switch-warp {
+  position: relative;
+  display: inline-block;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 4px #fff;
+  background-color: #bfbfbf;
+
+  &.checked {
+    background-color: #1890ff;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  .switch-circle {
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    box-shadow: 0 0 2px #eee;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.switch (@height: 1rem) {
+  @width: 2 * @height;
+  @circleHeight: @height * 0.8;
+  @circleWidth: @height * 0.8;
+  @circlePadding: @height * 0.1;
+
+  width: @width;
+  height: @height;
+  border-radius: (@height / 2);
+
+  .switch-circle {
+    left: @circlePadding;
+    top: @circlePadding;
+    width: @circleWidth;
+    height: @circleHeight;
+    border-radius: (@circleHeight / 2);
+  }
+
+  &.checked {
+    .switch-circle {
+      left: @width - @circleWidth - @circlePadding;
+    }
+  }
+}
+
+.switch-small {
+  .switch(1.2rem);
+}
+
+.switch-default {
+  .switch(1.5rem);
+}
+
+.switch-large {
+  .switch(1.8rem);
+}

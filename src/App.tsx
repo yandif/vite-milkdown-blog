@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
 
+import Routes from '@/components/Routes';
 import { TOKEN } from '@/constants';
-import RootRoutes from '@/pages/RootRoutes';
+import routes from '@/pages/routes';
 import AdminStore from '@/store/AdminStore';
 import AppStore from '@/store/AppStore';
 
@@ -40,7 +41,7 @@ const App: FC = () => {
     }
   };
 
-  return isInit && <RootRoutes /> || null;
+  return isInit && <Routes routes={routes} /> || null;
 };
 
 export default observer(App);
