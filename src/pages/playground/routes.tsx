@@ -5,11 +5,12 @@ import Play2 from './Play2';
 
 const routes: Route =
 {
-  path: '/playground',
+  path: 'playground',
   children: [
     {
       path: '1',
       element: <Play1 />,
+      auth: true,
     },
     {
       path: '2',

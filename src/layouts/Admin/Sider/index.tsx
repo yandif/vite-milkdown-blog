@@ -21,9 +21,10 @@ const { SubMenu, Item } = Menu;
 type AdminSiderProps = {
   collapsed: boolean;
   data: any;
+  baseName: string;
 };
 const AdminSider: FC<AdminSiderProps> = (
-  { collapsed, data },
+  { collapsed, data, baseName },
 ) => {
   const location = useLocation();
   const nav = useNavigate();
@@ -31,7 +32,7 @@ const AdminSider: FC<AdminSiderProps> = (
   const [openKeys, setOpenKeys] = useState<Array<string>>(); // 当前需要被展开的项
   const initSelectKey = () => {
     const paths = location.pathname.split('/').filter((item) => !!item);
-    setChosedKey([location.pathname]);
+    setChosedKey([location.pathname.replace(baseName, '')]);
     setOpenKeys([...paths.map((item) => `/${item}`)]);
   };
   // 当页面路由跳转时，即location发生改变，则更新选中项
@@ -52,7 +53,7 @@ const AdminSider: FC<AdminSiderProps> = (
   // 菜单被选择
   const onSelect = useCallback(
     (e) => {
-      nav(e.key);
+      nav(baseName + e.key);
     },
     [history],
   );
@@ -73,6 +74,7 @@ const AdminSider: FC<AdminSiderProps> = (
   // 构建树结构
   const makeTreeDom = useCallback((data) => {
     return data.map((item: { children: any; url: React.Key | null | undefined; parent: any; icon: string; title: object | null | undefined; }) => {
+      console.log(item.url);
       if (item.children) {
         return (
           <SubMenu

@@ -1,3 +1,5 @@
+import { Navigate } from 'react-router-dom';
+
 import asyncRouter from '@/components/asyncRouter';
 import { Route } from '@/components/Routes';
 import AdminLayout from '@/layouts/Admin';
@@ -6,12 +8,11 @@ const Login = asyncRouter(() => import('./Login'));
 
 const routes: Route = {
   path: '/admin',
-  element: <AdminLayout />,
+  element: <AdminLayout baseName='/admin' />,
   children: [
     {
       path: '',
-      element: <h1>首页</h1>,
-      auth: true,
+      element: <Navigate to="home" replace />,
     },
     {
       path: 'home',

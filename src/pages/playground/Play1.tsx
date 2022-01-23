@@ -14,7 +14,7 @@ const Play1: FC = () => {
   useEffect(() => {
     if (checked) {
       console.log(location?.search);
-      const timer = setInterval(() => nav('1?i=' + i++), 1000);
+      const timer = setInterval(() => nav('?i=' + i++), 1000);
       return () => {
         clearInterval(timer);
       };

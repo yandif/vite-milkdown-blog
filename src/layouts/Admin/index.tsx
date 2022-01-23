@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import { observer } from 'mobx-react-lite';
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import { message } from '@/components/Message';
@@ -15,7 +15,7 @@ import Sider from './Sider';
 
 const { Content } = Layout;
 
-function AdminLayout() {
+const AdminLayout: FC<{ baseName?: string }> = ({ baseName = '' }) => {
   const [_Appstore] = useState(() => AppStore);
   const [_AdminStore] = useState(() => AdminStore);
   const { data: { hideFooter, hideHeader, hideSidebar } } = _Appstore;
@@ -35,7 +35,7 @@ function AdminLayout() {
       id: 1,
       title: '首页',
       icon: 'icon-home',
-      url: '/admin/home',
+      url: '/home',
       parent: null,
       desc: '首页',
       sorts: 0,
@@ -45,7 +45,7 @@ function AdminLayout() {
       id: 2,
       title: '系统管理',
       icon: 'icon-setting',
-      url: '/admin/system',
+      url: '/system',
       parent: null,
       desc: '系统管理目录分支',
       sorts: 1,
@@ -55,7 +55,7 @@ function AdminLayout() {
       id: 3,
       title: '用户管理',
       icon: 'icon-user',
-      url: '/admin/system/account',
+      url: '/system/account',
       parent: 2,
       desc: '系统管理/用户管理',
       sorts: 0,
@@ -65,7 +65,7 @@ function AdminLayout() {
       id: 4,
       title: '角色管理',
       icon: 'icon-team',
-      url: '/admin/system/role',
+      url: '/system/role',
       parent: 2,
       desc: '系统管理/角色管理',
       sorts: 1,
@@ -75,7 +75,7 @@ function AdminLayout() {
       id: 5,
       title: '权限管理',
       icon: 'icon-safetycertificate',
-      url: '/admin/system/power',
+      url: '/system/power',
       parent: 2,
       desc: '系统管理/权限管理',
       sorts: 2,
@@ -85,7 +85,7 @@ function AdminLayout() {
       id: 6,
       title: '菜单管理',
       icon: 'icon-appstore',
-      url: '/admin/system/menu',
+      url: '/system/menu',
       parent: 2,
       desc: '系统管理/菜单管理',
       sorts: 3,
@@ -104,6 +104,7 @@ function AdminLayout() {
           key="admin-sider"
           collapsed={collapsed}
           data={data}
+          baseName={baseName}
         />
       )}
       <Layout key="admin-layout2">
@@ -139,6 +140,6 @@ function AdminLayout() {
       </Layout>
     </Layout>
   );
-}
+};
 
 export default observer(AdminLayout);
