@@ -19,6 +19,9 @@ const LoginForm = ({ prefix, setCurrentUser }: any) => {
   useEffect(() => {
     setShow(true);
     PassWord.check();
+    return ()=>{
+      setShow(false);
+    };
   }, [form]);
 
   const PassWord = {

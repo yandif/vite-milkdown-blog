@@ -1,6 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
+import { message } from '@/components/Message';
 import Routes from '@/components/Routes';
 import { TOKEN } from '@/constants';
 import routes from '@/pages/routes';
@@ -13,6 +15,7 @@ const App: FC = () => {
   const [_AdminStore] = useState(() => AdminStore);
   const { data: { isInit }, setIsLoading, setIsInit, } = _AppStore;
   const { setCurrentUser } = _AdminStore;
+  const location = useLocation();
 
   useEffect(() => { initApp(); }, []);
 
@@ -31,7 +34,7 @@ const App: FC = () => {
       const res = await Account.getUserInfo();
       if (res.code === 0) {
         setCurrentUser(res.data);
-      } 
+      }
     } catch (e) {
       console.log(e);
     } finally {

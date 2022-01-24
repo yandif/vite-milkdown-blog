@@ -29,7 +29,7 @@ const AdminLayout: FC<{ baseName?: string }> = ({ baseName = '' }) => {
     localStorage.removeItem(TOKEN);
     nav('login');
   }, []);
-
+  console.log('123123123123');
   const data = [
     {
       id: 1,
@@ -92,11 +92,11 @@ const AdminLayout: FC<{ baseName?: string }> = ({ baseName = '' }) => {
       conditions: 1,
     },
   ];
+  // TODO: 把状态分到子组件中，不通过props传递
   const userinfo = {
     userBasicInfo: user,
     menus: data,
   };
-
   return (
     <Layout key="admin-layout">
       {!hideSidebar && (
