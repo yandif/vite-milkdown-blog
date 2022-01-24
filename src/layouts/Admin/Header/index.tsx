@@ -31,9 +31,7 @@ const AdminHeader: FC<any> = ({
 
   const FullScreen = () => (
     <Tooltip placement="bottom" title={fullScreen ? '退出全屏' : '全屏'}>
-      <div className="full all_center" onClick={fullScreen ?
-        (exitFullScreen as () => void) :
-        (requestFullScreen as () => void)}>
+      <div className="full all_center" onClick={fullScreen ? exitFullScreen : requestFullScreen}>
         {fullScreen ? (
           <FullscreenExitOutlined className="icon" />
         ) : (

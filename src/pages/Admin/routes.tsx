@@ -5,6 +5,8 @@ import { Route } from '@/components/Routes';
 import AdminLayout from '@/layouts/Admin';
 
 const Login = asyncRouter(() => import('./Login'));
+const Account = asyncRouter(() => import('./Account'));
+const Role = asyncRouter(() => import('./Role'));
 
 const routes: Route = {
   path: '/admin',
@@ -29,13 +31,13 @@ const routes: Route = {
       path: 'system',
       children: [
         {
-          path: 'role',
-          element: <h1>角色</h1>,
+          path: 'account',
+          element: <Account />,
           auth: true,
         },
         {
-          path: 'account',
-          element: <h1>帐号</h1>,
+          path: 'role',
+          element: <Role />,
           auth: true,
         },
       ],

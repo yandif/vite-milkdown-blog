@@ -41,7 +41,7 @@ const useFullScreen = () => {
     setFullScreen(false);
   }, []);
 
-  return [fullScreen, requestFullScreen, exitFullScreen];
+  return [fullScreen, requestFullScreen, exitFullScreen] as const;
 };
 
 export default useFullScreen;
