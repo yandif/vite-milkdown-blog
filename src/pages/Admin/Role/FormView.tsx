@@ -53,7 +53,6 @@ const FormView: FunctionComponent<Props> = (
       }
       if (actionType === FORM.CREATE) {
         const data = await form.validateFields();
-        console.log(data);
         const res = await Role.create(data);
         if (res?.code === 0) {
           message.success('创建成功');

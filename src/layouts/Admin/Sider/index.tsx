@@ -74,7 +74,6 @@ const AdminSider: FC<AdminSiderProps> = (
   // 构建树结构
   const makeTreeDom = useCallback((data) => {
     return data.map((item: { children: any; url: React.Key | null | undefined; parent: any; icon: string; title: object | null | undefined; }) => {
-      console.log(item.url);
       if (item.children) {
         return (
           <SubMenu

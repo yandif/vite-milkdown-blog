@@ -1,6 +1,5 @@
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import AdminStore from '@/store/AdminStore';
@@ -23,7 +22,7 @@ const Auth: FC<{
   const location = useLocation();
   const [_AppStore] = useState(() => AppStore);
   const [_AdminStore] = useState(() => AdminStore);
-  const { setIsLoading, setHidden, } = _AppStore;
+  const { setIsLoading, setHidden } = _AppStore;
   const { data: { user } } = _AdminStore;
 
   setHidden({ hideHeader, hideSidebar, hideFooter });

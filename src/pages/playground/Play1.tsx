@@ -9,11 +9,8 @@ const Play1: FC = () => {
   const [checked, setChecked] = useState(false);
   const ref = useRef(0);
   ref.current++;
-  console.log(Play1);
-
   useEffect(() => {
     if (checked) {
-      console.log(location?.search);
       const timer = setInterval(() => nav('?i=' + i++), 1000);
       return () => {
         clearInterval(timer);
@@ -31,7 +28,6 @@ const Play1: FC = () => {
           setChecked(false);
         }}>点击</button>
         <Switch size="small" checked={checked} onChange={(v) => {
-          console.log(v);
           setChecked(v);
         }} />
         <Switch />

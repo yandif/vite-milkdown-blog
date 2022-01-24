@@ -4,10 +4,9 @@ import { FC, useEffect, useState } from 'react';
 import Routes from '@/components/Routes';
 import { TOKEN } from '@/constants';
 import routes from '@/pages/routes';
+import { Account } from '@/services';
 import AdminStore from '@/store/AdminStore';
 import AppStore from '@/store/AppStore';
-
-import { Account } from './services';
 
 const App: FC = () => {
   const [_AppStore] = useState(() => AppStore);
@@ -32,7 +31,7 @@ const App: FC = () => {
       const res = await Account.getUserInfo();
       if (res.code === 0) {
         setCurrentUser(res.data);
-      }
+      } 
     } catch (e) {
       console.log(e);
     } finally {
