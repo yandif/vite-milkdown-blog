@@ -29,7 +29,7 @@ const AdminLayout: FC<{ baseName?: string }> = ({ baseName = '' }) => {
     localStorage.removeItem(TOKEN);
     nav('login');
   }, []);
-  console.log('123123123123');
+
   const data = [
     {
       id: 1,
