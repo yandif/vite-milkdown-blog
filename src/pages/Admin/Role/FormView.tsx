@@ -139,13 +139,12 @@ const FormView: FunctionComponent<Props> = (
           <FormItem
             label="状态"
             name="status"
-            rules={[{ message: '请选择状态' }]}
           >
             <Select disabled={disabled}>
               <Option key={1} value={1}>
                 启用
               </Option>
-              <Option key={-1} value={-1}>
+              <Option key={0} value={0}>
                 禁用
               </Option>
             </Select>

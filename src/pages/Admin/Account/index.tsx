@@ -80,7 +80,7 @@ const Account = () => {
     const statusFlag = value === 1;
     return (
       <span style={{ color: statusFlag ? 'green' : 'red' }}>
-        {statusFlag ? '启用' : ''}
+        {statusFlag ? '启用' : '禁用'}
       </span>
     );
   };

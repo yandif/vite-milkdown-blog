@@ -17,7 +17,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { message } from '@/components/Message';
 import { FORM } from '@/constants';
-import { Account as AccountService, Role as RoleService } from '@/services';
+import { Role as RoleService } from '@/services';
 
 import FormView from './FormView';
 
@@ -72,13 +72,13 @@ const Role = () => {
   // 首次加载
   useEffect(() => {
     loadData(page);
-  },[]);
+  }, []);
   // 渲染状态
   const renderStatus = (value: number) => {
     const statusFlag = value === 1;
     return (
       <span style={{ color: statusFlag ? 'green' : 'red' }}>
-        {statusFlag ? '启用' : ''}
+        {statusFlag ? '启用' : '禁用'}
       </span>
     );
   };
@@ -132,7 +132,7 @@ const Role = () => {
             key="3"
             title="确定删除吗?"
             onConfirm={async () => {
-              const res = await AccountService.deleteUser(record.id);
+              const res = await RoleService.deleteRole(record.id);
               if (res.code === 0) {
                 message.success('删除成功');
                 loadData(page);
