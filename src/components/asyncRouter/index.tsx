@@ -1,3 +1,6 @@
+/**
+ * @description: 按需异步加载组件
+ */
 import React, { lazy, Suspense } from 'react';
 
 type Fn = () => Promise<{ default: React.ComponentType<any> }>;

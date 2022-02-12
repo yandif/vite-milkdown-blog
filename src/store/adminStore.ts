@@ -25,7 +25,7 @@ export default AdminStore;
 const disposer = intercept(AdminStore.data, 'user', (change) => {
   const { newValue } = change;
   if (newValue) {
-    console.log(newValue);
+    // console.log(newValue);
   }
   return change;
   disposer(); //停止监听

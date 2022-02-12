@@ -10,7 +10,6 @@ const routes: Route =
     {
       path: '1',
       element: <Play1 />,
-      auth: true,
     },
     {
       path: '2',

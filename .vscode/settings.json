@@ -7,9 +7,8 @@
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.fontSize": 14,
   "workbench.productIconTheme": "fluent-icons",
-  "editor.tokenColorCustomizations": {
-    "comments": "#ffffff65"
-  },
+  "editor.tokenColorCustomizations": { "comments": "#17e917" },
+  "editor.fontLigatures": true,
   "eslint.validate": [
     "javascript",
     "javascriptreact",

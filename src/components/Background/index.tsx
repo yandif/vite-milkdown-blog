@@ -1,5 +1,8 @@
-/** Canvas背景效果，变化的线条 **/
-import './index.css';
+/**
+ * @description: Canvas背景效果，变化的线条 
+ */
+
+import './index.less';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -176,7 +179,7 @@ export default function CanvasBack({ row = 12, col = 8 }: { row?: number; col?: 
   };
 
   return (
-    <div className="canvas-background">
+    <div className="components-background">
       <canvas ref={myCanvas} />
     </div>
   );
