@@ -11,7 +11,7 @@ const BreadCom: FC<{ menus: any[] }> = (props) => {
 
   /** 根据当前location动态生成对应的面包屑 **/
   const breads = useMemo(() => {
-    const paths = location.pathname;
+    const paths = location.pathname.replace(/^\/admin/, '');
     const breads = [];
 
     let parentId: any = null;

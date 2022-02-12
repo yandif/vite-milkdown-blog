@@ -1,0 +1,49 @@
+.menu-main {
+  display: flex;
+
+  .l {
+    width: 256px;
+    border: solid 1px #f0f0f0;
+    flex: none;
+
+    .title {
+      height: 44px;
+      line-height: 44px;
+      box-sizing: border-box;
+      font-size: 14px;
+      padding: 0 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+  }
+
+  .r {
+    border: solid 1px #f0f0f0;
+    margin-left: 16px;
+    flex: auto;
+
+    .menu-main-header {
+      padding: 8px;
+    }
+
+    .control-btn {
+      &-green {
+        font-size: 14px;
+        cursor: pointer;
+        color: #00a854;
+      }
+
+      &-red {
+        font-size: 14px;
+        cursor: pointer;
+        color: #ff3333;
+      }
+
+      &-blue {
+        font-size: 14px;
+        cursor: pointer;
+        color: #0066cc;
+      }
+    }
+  }
+
+}

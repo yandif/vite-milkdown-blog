@@ -21,7 +21,7 @@ import { Role as RoleService } from '@/services';
 
 import FormView from './FormView';
 
-const Role = () => {
+const Menu = () => {
   const formRef = useRef<any>();
   // 数据是否正在加载中
   const [loading, setLoading] = useState(false);
@@ -35,9 +35,9 @@ const Role = () => {
   });
   // 表格数据
   const tableData = useMemo(() => {
-    return data?.map((role) => ({
-      key: role?.id,
-      ...role,
+    return data?.map((menu) => ({
+      key: menu?.id,
+      ...menu,
     }));
   }, [page, data]);
   // 加载数据
@@ -166,26 +166,31 @@ const Role = () => {
   });
 
   return (
-    <div className="role-main">
-      <div className="role-main-header">
-        <FormView
-          action={{
-            query: () => {
-              loadData(page);
-            },
-          }}
-          formRef={formRef}
+    <div className="menu-main">
+      <div className="l">
+        <div className='title'>123</div>
+      </div>
+      <div className="r">
+        <div className="menu-main-header">
+          <FormView
+            action={{
+              query: () => {
+                loadData(page);
+              },
+            }}
+            formRef={formRef}
+          />
+        </div>
+        <Table
+          columns={tableColumns}
+          loading={loading}
+          dataSource={tableData}
+          pagination={pagination}
+          size="middle"
+          scroll={{ y: 374 }}
         />
       </div>
-      <Table
-        columns={tableColumns}
-        loading={loading}
-        dataSource={tableData}
-        pagination={pagination}
-        size="middle"
-        scroll={{ y: 374 }}
-      />
     </div>
   );
 };
-export default Role;
+export default Menu;
