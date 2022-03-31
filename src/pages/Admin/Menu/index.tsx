@@ -11,9 +11,11 @@ import {
   Popconfirm,
   Table,
   TablePaginationConfig,
-  Tooltip
+  Tooltip,
+  Tree
 } from 'antd';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { cloneDeep } from 'lodash';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { message } from '@/components/Message';
 import { FORM } from '@/constants';
@@ -27,6 +29,39 @@ const Menu = () => {
   const [loading, setLoading] = useState(false);
   // 数据
   const [data, setData] = useState<Array<{ id: string }>>([]);
+
+  const [treeSelect, setTreeSelect] = useState<{ title?: string; id?: number }>(
+    {}
+  );
+
+  const onTreeSelect = () => {
+
+  };
+  /** 工具 - 递归将扁平数据转换为层级数据 **/
+  const dataToJson = useCallback((one, data) => {
+    let kids;
+    if (!one) {
+      // 第1次递归
+      kids = data.filter((item: Menu) => !item.parent);
+    } else {
+      kids = data.filter((item: Menu) => item.parent === one.id);
+    }
+    kids.forEach((item: Menu) => (item.children = dataToJson(item, data)));
+    return kids.length ? kids : null;
+  }, []);
+
+  const sourceData = useMemo(() => {
+    const d: Menu[] = cloneDeep(data);
+    d.forEach((item: Menu & { key: string }) => {
+      item.key = String(item.id);
+    });
+    // 按照sort排序
+    d.sort((a, b) => {
+      return a.sorts - b.sorts;
+    });
+    return dataToJson(null, d) || [];
+  }, [data, dataToJson]);
+
   // 分页相关参数
   const [page, setPage] = useState({
     pageNumber: 1,
@@ -168,7 +203,13 @@ const Menu = () => {
   return (
     <div className="menu-main">
       <div className="l">
-        <div className='title'>123</div>
+        <div className='title'>目录结构</div>
+        <Tree
+          defaultExpandedKeys={['0']}
+          onSelect={onTreeSelect}
+          selectedKeys={[String(treeSelect.id)]}
+          treeData={sourceData}
+        ></Tree>
       </div>
       <div className="r">
         <div className="menu-main-header">

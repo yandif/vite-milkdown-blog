@@ -21,7 +21,7 @@ const FormView: FunctionComponent<Props> = (
 ) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [isLoading, debounce] = useDebounce('系统管理>角色管理：FormView 👇\n');
+  const [isLoading, debounce] = useDebounce('系统管理>菜单管理：FormView 👇\n');
   const [actionType, setActionType] = useState(FORM.CREATE);
   const [form] = Form.useForm();
 
@@ -93,7 +93,7 @@ const FormView: FunctionComponent<Props> = (
         icon={<PlusCircleOutlined />}
         onClick={() => showModal({ type: FORM.CREATE })}
       >
-        添加角色
+        添加根级子菜单
       </Button>
       <Modal
         title={titleMap[actionType]}
@@ -110,19 +110,19 @@ const FormView: FunctionComponent<Props> = (
           }}
         >
           {[FORM.VIEW, FORM.EDIT].includes(actionType) && (
-            <FormItem label="角色ID" name="id">
+            <FormItem label="菜单ID" name="id">
               <Input disabled />
             </FormItem>
           )}
           <FormItem
-            label="角色名"
+            label="菜单名"
             name="name"
             rules={[
               { required: true, whitespace: true, message: '必填' },
               { max: 12, message: '最多输入12位字符' },
             ]}
           >
-            <Input placeholder="请输入角色名" disabled={disabled} />
+            <Input placeholder="请输入菜单名" disabled={disabled} />
           </FormItem>
           <FormItem
             label="描述"

@@ -20,6 +20,7 @@ const Play1: FC = () => {
 
   return (
     <div>
+      <h1> 试一下react-router-dom v6 的 useLocation,useNavigate</h1>
       {ref.current}
       {JSON.stringify(checked)}
       <div>
@@ -32,6 +33,10 @@ const Play1: FC = () => {
         }} />
         <Switch />
         <Switch disabled />
+        <h3>useLocation</h3>
+        <pre>
+          {JSON.stringify(location, null, 2)}
+        </pre>
       </div>
     </div>
   );

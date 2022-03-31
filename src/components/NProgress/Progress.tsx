@@ -14,7 +14,7 @@ const Progress: FC<{
   });
 
   return (
-    <Container animationDuration={animationDuration} isFinished={isFinished}>
+    <Container animationDuration={animationDuration} isFinished={isFinished} >
       <Bar
         animationDuration={animationDuration}
         progress={progress}

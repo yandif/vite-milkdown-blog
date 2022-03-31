@@ -1,8 +1,9 @@
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal, Select } from 'antd';
+import { Button, Form, Modal, Select } from 'antd';
 import { FC, FunctionComponent, useEffect, useState } from 'react';
 
 import { message } from '@/components/Message';
+import { Input } from '@/components/UI';
 import { FORM } from '@/constants';
 import useDebounce from '@/hooks/useDebounce';
 import { Account } from '@/services';
@@ -104,22 +105,22 @@ const FormView: FC<Props> = ({ action = defaultAction, formRef }) => {
           }}
         >
           {[FORM.VIEW, FORM.EDIT].includes(actionType) && (
-            <FormItem label="用户ID" name="id">
-              <Input disabled />
-            </FormItem>
+            <Input label="用户ID" name="id" disabled />
           )}
-          <FormItem
+
+          <Input
             label="用户名"
             name="username"
             rules={[
               { required: true, whitespace: true, message: '必填' },
               { max: 12, message: '最多输入12位字符' },
             ]}
-          >
-            <Input placeholder="请输入用户名" disabled={disabled} />
-          </FormItem>
+            placeholder="请输入用户名"
+            disabled={disabled}
+          />
+
           {actionType === FORM.CREATE && (
-            <FormItem
+            <Input
               label="密码"
               name="password"
               rules={[
@@ -127,17 +128,13 @@ const FormView: FC<Props> = ({ action = defaultAction, formRef }) => {
                 { min: 6, message: '最少输入6位字符' },
                 { max: 18, message: '最多输入18位字符' },
               ]}
-            >
-              <Input
-                type="password"
-                placeholder="请输入密码"
-                autoComplete="new-password"
-                disabled={disabled}
-              />
-            </FormItem>
+              type="password"
+              placeholder="请输入密码"
+              autoComplete="new-password"
+              disabled={disabled}
+            />
           )}
-          <FormItem
-            label="电话"
+          <Input label="电话"
             name="mobile"
             rules={[
               () => ({
@@ -149,10 +146,11 @@ const FormView: FC<Props> = ({ action = defaultAction, formRef }) => {
                 },
               }),
             ]}
-          >
-            <Input placeholder="请输入手机号" maxLength={11} disabled={disabled} />
-          </FormItem>
-          <FormItem
+            placeholder="请输入手机号"
+            maxLength={11}
+            disabled={disabled}
+          />
+          <Input
             label="邮箱"
             name="email"
             rules={[
@@ -165,9 +163,10 @@ const FormView: FC<Props> = ({ action = defaultAction, formRef }) => {
                 },
               }),
             ]}
-          >
-            <Input placeholder="请输入邮箱地址" disabled={disabled} />
-          </FormItem>
+            placeholder="请输入邮箱地址"
+            disabled={disabled}
+          />
+
           <FormItem label="状态" name="status">
             <Select disabled={disabled}>
               <Option key={1} value={1}>
